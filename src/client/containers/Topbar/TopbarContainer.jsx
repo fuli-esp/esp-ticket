@@ -176,7 +176,7 @@ class TopbarContainer extends React.Component {
                     <li className='top-bar-icon'>
                       <PDropdownTrigger target={this.conversationsDropdownPartial}>
                         <a
-                          title={'Conversations'}
+s                          title={'对话'}
                           className='no-ajaxy uk-vertical-align'
                           onClick={e => TopbarContainer.onConversationsClicked(e)}
                         >
@@ -186,7 +186,7 @@ class TopbarContainer extends React.Component {
                     </li>
                     <li className='top-bar-icon'>
                       <PDropdownTrigger target={this.notificationsDropdownPartial}>
-                        <a title={'Notifications'} className={'no-ajaxy uk-vertical-align'}>
+                        <a title={'通知'} className={'no-ajaxy uk-vertical-align'}>
                           <i className='material-icons'>notifications</i>
                           <span
                             className={'alert uk-border-circle label ' + (this.notificationCount < 1 ? 'hide' : '')}

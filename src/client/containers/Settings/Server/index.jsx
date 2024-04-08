@@ -133,7 +133,7 @@ class ServerSettingsController extends React.Component {
           subtitle={'Restart the Trudesk Instance. '}
           component={
             <Button
-              text={'Restart'}
+              text={'重启'}
               flat={false}
               waves={true}
               style={'danger'}

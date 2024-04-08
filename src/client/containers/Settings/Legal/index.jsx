@@ -64,7 +64,7 @@ class LegalSettingsContainer extends React.Component {
           </div>
           <div className='uk-clearfix'>
             <Button
-              text={'Save'}
+              text={'保存'}
               extraClass={'uk-float-right'}
               flat={true}
               style={'success'}

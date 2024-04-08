@@ -70,8 +70,8 @@ class CreateTicketTypeModal extends React.Component {
             />
           </div>
           <div className='uk-modal-footer uk-text-right'>
-            <Button text={'Close'} flat={true} waves={true} extraClass={'uk-modal-close'} />
-            <Button text={'Create'} style={'success'} type={'submit'} />
+            <Button text={'关闭'} flat={true} waves={true} extraClass={'uk-modal-close'} />
+            <Button text={'创建'} style={'success'} type={'submit'} />
           </div>
         </form>
       </BaseModal>

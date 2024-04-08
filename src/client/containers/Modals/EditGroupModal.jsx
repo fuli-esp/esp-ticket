@@ -107,7 +107,7 @@ class EditGroupModal extends React.Component {
             />
           </div>
           <div className={'uk-margin-medium-bottom'}>
-            <label style={{ marginBottom: 5 }}>Group Members</label>
+            <label style={{ marginBottom: 5 }}>组成员</label>
             <MultiSelect
               items={mappedAccounts}
               initialSelected={selectedMembers}
@@ -116,7 +116,7 @@ class EditGroupModal extends React.Component {
             />
           </div>
           <div className={'uk-margin-medium-bottom'}>
-            <label style={{ marginBottom: 5 }}>Send Notifications To</label>
+            <label style={{ marginBottom: 5 }}>发送通知到</label>
             <MultiSelect
               items={mappedAccounts}
               initialSelected={selectedSendMailTo}
@@ -125,8 +125,8 @@ class EditGroupModal extends React.Component {
             />
           </div>
           <div className='uk-modal-footer uk-text-right'>
-            <Button text={'Close'} flat={true} waves={true} extraClass={'uk-modal-close'} />
-            <Button text={'Save Group'} flat={true} waves={true} style={'primary'} type={'submit'} />
+            <Button text={'关闭'} flat={true} waves={true} extraClass={'uk-modal-close'} />
+            <Button text={'保存组'} flat={true} waves={true} style={'primary'} type={'submit'} />
           </div>
         </form>
       </BaseModal>

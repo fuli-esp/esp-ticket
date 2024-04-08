@@ -126,7 +126,7 @@ const ReportTicketByGroups = () => {
                       />
                     </div>
                     <div>
-                      <Button text={'Generate'} type={'submit'} style={'primary'} waves={true} small={true} />
+                      <Button text={'生成'} type={'submit'} style={'primary'} waves={true} small={true} />
                     </div>
                   </GridItem>
                 </Grid>

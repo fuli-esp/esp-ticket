@@ -99,11 +99,11 @@ class GroupsContainer extends React.Component {
           <TableCell style={{ textAlign: 'right', paddingRight: 15 }}>
             <ButtonGroup>
               {helpers.canUser('groups:update', true) && (
-                <Button text={'Edit'} small={true} waves={true} onClick={() => this.onEditGroupClick(group.toJS())} />
+                <Button text={'编辑'} small={true} waves={true} onClick={() => this.onEditGroupClick(group.toJS())} />
               )}
               {helpers.canUser('groups:delete', true) && (
                 <Button
-                  text={'Delete'}
+                  text={'删除'}
                   style={'danger'}
                   small={true}
                   waves={true}
@@ -124,7 +124,7 @@ class GroupsContainer extends React.Component {
             <div className={'uk-grid uk-grid-collapse'}>
               <div className={'uk-width-1-1 mt-15 uk-text-right'}>
                 <Button
-                  text={'Create'}
+                  text={'创建'}
                   flat={false}
                   small={true}
                   waves={false}
@@ -138,9 +138,9 @@ class GroupsContainer extends React.Component {
         <PageContent padding={0} paddingBottom={0}>
           <Table
             headers={[
-              <TableHeader key={0} width={'25%'} height={40} text={'Name'} padding={'8px 8px 8px 15px'} />,
-              <TableHeader key={1} width={'50%'} text={'Group Members'} />,
-              <TableHeader key={2} width={130} text={'Group Actions'} />
+              <TableHeader key={0} width={'25%'} height={40} text={'姓名'} padding={'8px 8px 8px 15px'} />,
+              <TableHeader key={1} width={'50%'} text={'组成员'} />,
+              <TableHeader key={2} width={130} text={'组动作'} />
             ]}
           >
             {tableItems}

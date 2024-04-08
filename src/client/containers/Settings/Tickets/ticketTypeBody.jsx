@@ -129,7 +129,7 @@ class TicketTypeBody extends React.Component {
           </h2>
           <div className='uk-float-right'>
             <Button
-              text={'Add'}
+              text={'添加'}
               style={'success'}
               flat={true}
               waves={true}
@@ -157,12 +157,12 @@ class TicketTypeBody extends React.Component {
                       component={
                         <ButtonGroup classNames={'uk-float-right'}>
                           <Button
-                            text={'Edit'}
+                            text={'编辑'}
                             small={true}
                             onClick={e => this.toggleEditPriority(e, item.get('_id'))}
                           />
                           <Button
-                            text={'Remove'}
+                            text={'移除'}
                             small={true}
                             style={'danger'}
                             onClick={e => this.onRemoveTicketTypePriorityClicked(e, item.get('_id'))}
@@ -187,7 +187,7 @@ class TicketTypeBody extends React.Component {
               </div>
               <div className='uk-float-right' style={{ paddingTop: '10px' }}>
                 <Button
-                  text={'Delete'}
+                  text={'删除'}
                   small={true}
                   style={'danger'}
                   onClick={e => this.showDeleteTicketTypeModal(e, type)}

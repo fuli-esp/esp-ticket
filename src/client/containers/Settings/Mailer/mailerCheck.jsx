@@ -407,7 +407,7 @@ class Mailer_MailerCheck extends React.Component {
             </div>
             <div className='uk-clearfix'>
               <Button
-                text={'Check Now'}
+                text={'现在检查'}
                 type={'button'}
                 extraClass={'uk-float-left'}
                 flat={true}
@@ -417,7 +417,7 @@ class Mailer_MailerCheck extends React.Component {
                 disabled={!this.getSetting('mailerCheckEnabled')}
               />
               <Button
-                text={'Apply'}
+                text={'应用'}
                 type={'submit'}
                 extraClass={'uk-float-right'}
                 flat={true}

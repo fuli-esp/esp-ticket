@@ -23,17 +23,17 @@
 
       <div class="list">
         <label class="item item-input item-floating-label no-padding no-border">
-          <span class="input-label">Username</span>
+          <span class="input-label">用户名</span>
           <input type="text" name="username" autocorrect="off" autocapitalize="none" placeholder="Username" class="md" ng-model="auth.username" ng-required="true" ng-minlength="4" required>
         </label>
-        <p ng-show="invalid.username" class="no-margin text-muted" style="padding-top: 3px;">Invalid Username</p>
+        <p ng-show="invalid.username" class="no-margin text-muted" style="padding-top: 3px;">无效用户名</p>
         <label class="item item-input item-floating-label no-padding no-border">
-          <span class="input-label">Password</span>
+          <span class="input-label">密码</span>
           <input type="password" name="password" placeholder="Password" class="md" ng-model="auth.password" ng-required="true" ng-minlength="4">
         </label>
-        <p ng-show="invalid.password" class="no-margin text-muted" style="padding-top: 3px;">Invalid Password</p>
+        <p ng-show="invalid.password" class="no-margin text-muted" style="padding-top: 3px;">无效密码</p>
       </div>
-      <button type="submit" class="button button-block" style="border-radius: 0; background: #E74C3C; color: #fff;" ng-click="login(loginForm)">Login</button>
+      <button type="submit" class="button button-block" style="border-radius: 0; background: #E74C3C; color: #fff;" ng-click="login(loginForm)">登录</button>
     </form>
   </ion-content>
 </ion-view>

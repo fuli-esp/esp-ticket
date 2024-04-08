@@ -91,8 +91,8 @@ class DeleteTicketTypeModal extends React.Component {
             </span>
           </div>
           <div className='uk-modal-footer uk-text-right'>
-            <Button text={'Cancel'} flat={true} waves={true} extraClass={'uk-modal-close'} />
-            <Button text={'Delete'} style={'danger'} flat={true} type={'submit'} />
+            <Button text={'取消'} flat={true} waves={true} extraClass={'uk-modal-close'} />
+            <Button text={'删除'} style={'danger'} flat={true} type={'submit'} />
           </div>
         </form>
       </BaseModal>

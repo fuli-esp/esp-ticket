@@ -309,7 +309,7 @@ class MessagesContainer extends React.Component {
         <Grid>
           <GridItem width={'3-10'} extraClass={'full-height'}>
             <PageTitle
-              title={'Conversations'}
+              title={'对话'}
               extraClasses={'page-title-border-right'}
               hideBorderBottom={true}
               rightComponent={
@@ -323,7 +323,7 @@ class MessagesContainer extends React.Component {
                         onClick={e => this.showUserList(e)}
                       >
                         <i className='material-icons' style={{ fontSize: '28px', fontWeight: 300 }}>
-                          add
+                          添加
                         </i>
                       </a>
                     )}
@@ -333,7 +333,7 @@ class MessagesContainer extends React.Component {
                         style={{ height: 28, lineHeight: '30px', fontSize: '16px', fontWeight: 300 }}
                         onClick={e => this.hideUserList(e)}
                       >
-                        Cancel
+                        取消
                       </a>
                     )}
                   </div>
@@ -377,7 +377,7 @@ class MessagesContainer extends React.Component {
                 <div className='search-box'>
                   <input
                     type='text'
-                    placeholder={'Search'}
+                    placeholder={'搜索'}
                     value={this.userListSearchText}
                     onChange={e => this.onUserListSearchChange(e)}
                   />

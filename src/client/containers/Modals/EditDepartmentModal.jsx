@@ -178,8 +178,8 @@ class EditDepartmentModal extends React.Component {
             />
           </div>
           <div className='uk-modal-footer uk-text-right'>
-            <Button text={'Close'} flat={true} waves={true} extraClass={'uk-modal-close'} />
-            <Button text={'Save Department'} flat={true} waves={true} style={'primary'} type={'submit'} />
+            <Button text={'关闭'} flat={true} waves={true} extraClass={'uk-modal-close'} />
+            <Button text={'保存部门'} flat={true} waves={true} style={'primary'} type={'submit'} />
           </div>
         </form>
       </BaseModal>

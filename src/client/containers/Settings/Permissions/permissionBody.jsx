@@ -280,7 +280,7 @@ class PermissionBody extends React.Component {
                 </div>
                 <div className='uk-float-right' style={{ paddingTop: '10px' }}>
                   <Button
-                    text={'Delete'}
+                    text={'删除'}
                     small={true}
                     style={'danger'}
                     onClick={e => this.showDeletePermissionRole(e)}
@@ -293,7 +293,7 @@ class PermissionBody extends React.Component {
           <div>
             <div className='box uk-clearfix'>
               <div className='uk-float-right' style={{ paddingTop: '10px' }}>
-                <Button type={'submit'} style={'success'} waves={true} text={'Save Permissions'} />
+                <Button type={'submit'} style={'success'} waves={true} text={'保存权限'} />
               </div>
             </div>
           </div>

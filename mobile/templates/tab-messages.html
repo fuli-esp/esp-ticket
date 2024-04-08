@@ -40,7 +40,7 @@
         </ion-list>
       </div>
       <div style="width: 100%; flex: 1 0; text-align: center;">
-        <div class="" style="margin-bottom: 25px; font-size: 22px; font-weight: 300; padding-top: 25px;">No Conversations</div>
+        <div class="" style="margin-bottom: 25px; font-size: 22px; font-weight: 300; padding-top: 25px;">暂无对话</div>
         <!-- <hr style="width: 80%; height: 2px; border: none; background: #ccc; margin-bottom: 20px;" /> -->
         <div style="width: 70%; margin: 0 auto;">
             <button class="button button-full button-assertive" ng-click="showNewConversation();">Start Conversation</button>
@@ -65,7 +65,7 @@
             </ion-item>
         </ion-scroll>
     </ion-list>
-    <ion-item class="item-divider item light-font list-head-light" ng-show="showRecentConversations">Conversations</ion-item>
+    <ion-item class="item-divider item light-font list-head-light" ng-show="showRecentConversations">对话</ion-item>
     <ion-list>
       <ion-item class="item-remove-animate item-avatar item-icon-right"
       ng-repeat="convo in recentConversations track by convo._id | orderBy:'-updatedAt'"

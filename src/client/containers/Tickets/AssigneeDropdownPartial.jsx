@@ -51,7 +51,7 @@ class AssigneeDropdownPartial extends React.Component {
     return (
       <PDropDown
         ref={this.props.forwardedRef}
-        title={'Select Assignee'}
+        title={'选择负责人'}
         id={'assigneeDropdown'}
         className={'opt-ignore-notice'}
         override={true}
@@ -68,7 +68,7 @@ class AssigneeDropdownPartial extends React.Component {
               this.props.socket.emit(TICKETS_ASSIGNEE_CLEAR, this.props.ticketId)
             }}
           >
-            Clear Assignee
+           清除负责人
           </a>
         }
       >

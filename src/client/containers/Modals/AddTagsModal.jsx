@@ -127,7 +127,7 @@ class AddTagsModal extends React.Component {
               <div className='left' style={{ marginTop: 15 }}>
                 <Button
                   type={'button'}
-                  text={'Clear'}
+                  text={'清除'}
                   small={true}
                   flat={true}
                   style={'danger'}
@@ -137,7 +137,7 @@ class AddTagsModal extends React.Component {
               <div className='right' style={{ marginTop: 15 }}>
                 <Button
                   type={'button'}
-                  text={'Cancel'}
+                  text={'取消'}
                   style={'secondary'}
                   small={true}
                   flat={true}
@@ -145,7 +145,7 @@ class AddTagsModal extends React.Component {
                   extraClass={'uk-modal-close'}
                   ref={r => (this.closeButton = r)}
                 />
-                <Button type={'submit'} text={'Save Tags'} style={'success'} small={true} waves={true} />
+                <Button type={'submit'} text={'保存标签'} style={'success'} small={true} waves={true} />
               </div>
             </form>
           </div>

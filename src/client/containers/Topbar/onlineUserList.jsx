@@ -124,13 +124,13 @@ class OnlineUserListPartial extends React.Component {
             </div>
           </div>
 
-          <h5>More Conversations</h5>
+          <h5>更多对话</h5>
           <div className='user-list-wrapper' style={{ lineHeight: 'normal' }}>
             <div
               className='online-list-search-box search-box'
               style={{ borderTop: '1px solid rgba(0,0,0,0.1)', borderRight: 'none' }}
             >
-              <input type='text' placeholder={'Search'} />
+              <input type='text' placeholder={'搜索'} />
             </div>
             <ul className='user-list'>
               {users.map(user => {

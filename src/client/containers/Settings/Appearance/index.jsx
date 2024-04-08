@@ -244,7 +244,7 @@ class AppearanceSettings extends React.Component {
           subtitle='Select the colors for your color scheme.'
           component={
             <Button
-              text={'Save'}
+              text={'保存'}
               flat={true}
               style={'success'}
               extraClass={'uk-float-right mt-10'}

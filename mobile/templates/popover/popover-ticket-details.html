@@ -1,12 +1,12 @@
 <ion-popover-view class="popover-autoheight">
   <ion-content scroll="false">
     <div class="list">
-      <a class="item" ng-click="showAddComment($event)">Add Comment</a>
-       <a class="item" ng-show="hasNotes" ng-click="showAddNote($event)">Add Note</a>
-      <a class="item" ng-show="isAgent" ng-click="openSetAssigneeModal()">Set Assignee</a>
+      <a class="item" ng-click="showAddComment($event)">添加评论</a>
+       <a class="item" ng-show="hasNotes" ng-click="showAddNote($event)">添加备注</a>
+      <a class="item" ng-show="isAgent" ng-click="openSetAssigneeModal()">安排负责人</a>
       <a class="item" ng-show="isAgent" ng-click="showStatusActionSheet()">Set Status</a>
-      <a class="item" ng-click="showTicketDetails()">View Details</a>
-      <a class="item" ng-show="isAgent" ng-click="closeTicket()" style="color: #D32F2F;">Close Ticket</a>
+      <a class="item" ng-click="showTicketDetails()">查看详情</a>
+      <a class="item" ng-show="isAgent" ng-click="closeTicket()" style="color: #D32F2F;">关闭工单</a>
     </div>
   </ion-content>
 </ion-popover-view>

@@ -322,9 +322,9 @@ class EditAccountModal extends React.Component {
               </div>
             )}
             <div className='uk-modal-footer uk-text-right'>
-              <Button text={'Close'} flat={true} waves={true} extraClass={'uk-modal-close'} />
+              <Button text={'关闭'} flat={true} waves={true} extraClass={'uk-modal-close'} />
               <Button
-                text={'Save Account'}
+                text={'保存账号'}
                 flat={true}
                 waves={true}
                 style={'primary'}

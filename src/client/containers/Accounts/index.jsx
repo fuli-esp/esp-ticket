@@ -234,7 +234,7 @@ class AccountsContainer extends React.Component {
               <div className={'uk-width-1-4 mt-15 pr-20 uk-clearfix'}>
                 <ButtonGroup classNames={'uk-clearfix uk-float-right'}>
                   <Button
-                    text={'Create'}
+                    text={'创建'}
                     hasDropdown={false}
                     flat={false}
                     small={true}

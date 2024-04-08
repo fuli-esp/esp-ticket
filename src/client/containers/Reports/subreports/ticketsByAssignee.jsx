@@ -169,7 +169,7 @@ const ReportTicketsByAssignee = () => {
                     <div>
                       <Button
                         disabled={isLoading}
-                        text={'Generate'}
+                        text={'生成'}
                         type={'submit'}
                         style={'primary'}
                         waves={true}

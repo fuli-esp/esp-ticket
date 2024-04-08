@@ -100,8 +100,8 @@ class CreateGroupModal extends React.Component {
             <MultiSelect items={mappedAccounts} onChange={() => {}} ref={r => (this.membersSelect = r)} />
           </div>
           <div className='uk-modal-footer uk-text-right'>
-            <Button text={'Close'} flat={true} waves={true} extraClass={'uk-modal-close'} />
-            <Button text={'Create Group'} flat={true} waves={true} style={'primary'} type={'submit'} />
+            <Button text={'关闭'} flat={true} waves={true} extraClass={'uk-modal-close'} />
+            <Button text={'创建组'} flat={true} waves={true} style={'primary'} type={'submit'} />
           </div>
         </form>
       </BaseModal>

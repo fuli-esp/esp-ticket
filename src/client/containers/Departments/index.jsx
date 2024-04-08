@@ -70,7 +70,7 @@ class DepartmentsContainer extends React.Component {
             <div className={'uk-grid uk-grid-collapse'}>
               <div className={'uk-width-1-1 mt-15 uk-text-right'}>
                 <Button
-                  text={'Create'}
+                  text={'创建'}
                   flat={false}
                   small={true}
                   waves={false}
@@ -176,7 +176,7 @@ class DepartmentsContainer extends React.Component {
                         <ButtonGroup>
                           {helpers.canUser('departments:update', true) && (
                             <Button
-                              text={'Edit'}
+                              text={'编辑'}
                               small={true}
                               waves={true}
                               onClick={() => this.onEditDepartmentClick(department)}
@@ -184,7 +184,7 @@ class DepartmentsContainer extends React.Component {
                           )}
                           {helpers.canUser('departments:delete', true) && (
                             <Button
-                              text={'Delete'}
+                              text={'删除'}
                               style={'danger'}
                               small={true}
                               waves={true}

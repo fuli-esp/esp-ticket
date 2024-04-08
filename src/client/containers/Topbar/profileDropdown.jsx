@@ -79,7 +79,7 @@ class ProfileDropdownPartial extends React.Component {
                   {this.props.sessionUser.fullname}
                 </span>
                 <span>{this.props.sessionUser.email}</span>
-                <a href='/profile'>Profile Settings</a>
+                <a href='/profile'>偏好设置</a>
               </div>
             </div>
           </div>
@@ -110,14 +110,14 @@ class ProfileDropdownPartial extends React.Component {
           <div className={'profile-drop-actions'}>
             <div className={'action-logout'}>
               <i className='material-icons'>logout</i>
-              <a href='/logout'>Logout</a>
+              <a href='/logout'>登出</a>
             </div>
           </div>
         </div>
-        <div className={'pdrop-footer'}>
+        {/* <div className={'pdrop-footer'}>
           <div className='links'>
             <a href='https://forum.trudesk.io' target={'_blank'} rel={'noreferrer'}>
-              Community
+              社区
             </a>
             <span>&middot;</span>
             <a
@@ -132,7 +132,7 @@ class ProfileDropdownPartial extends React.Component {
               Privacy Policy
             </a>
           </div>
-        </div>
+        </div> */}
       </PDropdown>
     )
   }

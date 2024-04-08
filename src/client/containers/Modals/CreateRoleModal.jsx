@@ -63,9 +63,9 @@ class CreateRoleModal extends React.Component {
             />
           </div>
           <div className='uk-modal-footer uk-text-right'>
-            <Button text={'Close'} extraClass={'uk-modal-close'} flat={true} waves={true} />
+            <Button text={'关闭'} extraClass={'uk-modal-close'} flat={true} waves={true} />
             <Button
-              text={'Create'}
+              text={'创建'}
               type={'button'}
               flat={true}
               waves={true}

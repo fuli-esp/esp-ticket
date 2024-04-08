@@ -12,21 +12,21 @@
  *  Copyright (c) 2014-2022. All rights reserved.
  */
 
-const path = require('path')
-const PDFDocument = require('pdfkit')
+const path = require('path');
+const PDFDocument = require('pdfkit');
 
-const moment = require('moment-timezone')
-const marked = require('marked')
-const convert = require('html-to-text').convert
+const moment = require('moment-timezone');
+const marked = require('marked');
+const convert = require('html-to-text').convert;
 
 class TicketPDFGenerator {
-  constructor (ticket) {
-    this.ticket = ticket
-    this.beginningOfPage = 50
-    this.endOfPage = 550
+  constructor(ticket) {
+    this.ticket = ticket;
+    this.beginningOfPage = 50;
+    this.endOfPage = 550;
   }
 
-  generateHeaders (doc) {
+  generateHeaders(doc) {
     doc
       .image(path.resolve(__dirname, '../../public/img/defaultLogoDark.png'), 50, 50, { width: 128 })
       .fillColor('#000')
@@ -37,22 +37,19 @@ class TicketPDFGenerator {
       .text('Group:   ' + this.ticket.group.name, { align: 'right' })
       .text('Due Date:   ' + moment(this.ticket.dueDate).format('MM-DD-YYYY'), { align: 'right' })
       .text('Priority:   ' + this.ticket.priority.name, { align: 'right' })
-      .text('Type:   ' + this.ticket.type.name, { align: 'right' })
+      .text('Type:   ' + this.ticket.type.name, { align: 'right' });
 
-    doc
-      .moveTo(this.beginningOfPage, 150)
-      .lineTo(this.endOfPage, 150)
-      .stroke('#bbb')
+    doc.moveTo(this.beginningOfPage, 150).lineTo(this.endOfPage, 150).stroke('#bbb');
   }
 
-  generateIssue (doc) {
-    const ownerImage = this.ticket.owner.image ? this.ticket.owner.image : 'defaultProfile.jpg'
+  generateIssue(doc) {
+    const ownerImage = this.ticket.owner.image ? this.ticket.owner.image : 'defaultProfile.jpg';
     doc
       .circle(65, 190, 15)
       .save()
       .clip()
       .image(path.resolve(__dirname, '../../public/uploads/users/' + ownerImage), 50, 175, { width: 30 })
-      .restore()
+      .restore();
 
     doc
       .fontSize(12)
@@ -62,61 +59,50 @@ class TicketPDFGenerator {
       .text(this.ticket.owner.fullname + ' <' + this.ticket.owner.email + '>', 100, doc.y + 5)
       .fill('#000')
       .text(moment(this.ticket.date).format('MM-DD-YYYY HH:mm:ss'))
-      .moveDown(2)
+      .moveDown(2);
 
-    const markedIssue = marked.parse(this.ticket.issue)
-    const images = []
+    const markedIssue = marked.parse(this.ticket.issue);
+    const images = [];
     const converted = convert(markedIssue, {
       wordwrap: 200,
       formatters: {
         image: function (elm, walk, builder, formatOptions) {
           images.push({
-            elm
-          })
-        }
-      }
-    })
+            elm,
+          });
+        },
+      },
+    });
 
-    doc.fontSize(10).text(converted, 50, doc.y)
+    doc.fontSize(10).text(converted, 50, doc.y);
 
     if (images.length > 0) {
-      doc
-        .fontSize(14)
-        .text('\n')
-        .text('Images')
+      doc.fontSize(14).text('\n').text('Images');
       for (let i = 0; i < images.length; i++) {
-        const elm = images[i].elm
-        doc.image(elm.attribs.src, { width: elm.attribs.width })
+        const elm = images[i].elm;
+        doc.image(elm.attribs.src, { width: elm.attribs.width });
       }
     }
 
-    doc
-      .moveDown()
-      .moveTo(this.beginningOfPage, doc.y)
-      .lineTo(this.endOfPage, doc.y)
-      .stroke('#ccc')
-      .moveDown(2)
+    doc.moveDown().moveTo(this.beginningOfPage, doc.y).lineTo(this.endOfPage, doc.y).stroke('#ccc').moveDown(2);
   }
 
-  generateComments (doc) {
-    const comments = this.ticket.comments
-    doc
-      .fontSize(14)
-      .text('Comments')
-      .moveDown()
+  generateComments(doc) {
+    const comments = this.ticket.comments;
+    doc.fontSize(14).text('Comments').moveDown();
 
-    if (comments.length < 1) doc.fontSize(11).text('No Comments')
+    if (comments.length < 1) doc.fontSize(11).text('No Comments');
     else {
       for (let i = 0; i < comments.length; i++) {
-        const comment = comments[i]
+        const comment = comments[i];
 
-        const ownerImage = comment.owner.image ? comment.owner.image : 'defaultProfile.jpg'
+        const ownerImage = comment.owner.image ? comment.owner.image : 'defaultProfile.jpg';
         doc
           .circle(65, doc.y + 15, 15)
           .save()
           .clip()
           .image(path.resolve(__dirname, '../../public/uploads/users/' + ownerImage), 50, doc.y, { width: 30 })
-          .restore()
+          .restore();
 
         doc
           .fontSize(12)
@@ -125,103 +111,84 @@ class TicketPDFGenerator {
           .fill('#0000ff')
           .text(comment.owner.fullname + ' <' + comment.owner.email + '>', 100, doc.y + 5)
           .fill('#000')
-          .text(moment(this.ticket.date).format('MM-DD-YYYY HH:mm:ss'))
+          .text(moment(this.ticket.date).format('MM-DD-YYYY HH:mm:ss'));
 
-        doc.moveDown(2)
+        doc.moveDown(2);
 
-        const markedComment = marked.parse(comment.comment)
-        const images = []
+        const markedComment = marked.parse(comment.comment);
+        const images = [];
         const converted = convert(markedComment, {
           wordwrap: 200,
           formatters: {
             image: function (elm, walk, builder, formatOptions) {
               images.push({
-                elm
-              })
-            }
-          }
-        })
+                elm,
+              });
+            },
+          },
+        });
 
-        doc.fontSize(10).text(converted)
+        doc.fontSize(10).text(converted);
 
-        doc
-          .moveDown()
-          .moveTo(this.beginningOfPage, doc.y)
-          .lineTo(this.endOfPage, doc.y)
-          .stroke('#ddd')
-          .moveDown(2)
+        doc.moveDown().moveTo(this.beginningOfPage, doc.y).lineTo(this.endOfPage, doc.y).stroke('#ddd').moveDown(2);
       }
     }
 
-    doc
-      .moveDown()
-      .moveTo(this.beginningOfPage, doc.y)
-      .lineTo(this.endOfPage, doc.y)
-      .stroke('#bbb')
-      .moveDown(2)
+    doc.moveDown().moveTo(this.beginningOfPage, doc.y).lineTo(this.endOfPage, doc.y).stroke('#bbb').moveDown(2);
   }
 
-  generateTicketHistory (doc) {
-    const history = this.ticket.history
-    doc.addPage()
-    this.generateHeaders(doc)
-    doc
-      .moveDown(4)
-      .fontSize(14)
-      .text('Ticket History', 50)
-      .moveDown()
+  generateTicketHistory(doc) {
+    const history = this.ticket.history;
+    doc.addPage();
+    this.generateHeaders(doc);
+    doc.moveDown(4).fontSize(14).text('工单历史', 50).moveDown();
 
-    if (history.length < 1) doc.text('No History')
+    if (history.length < 1) doc.text('暂无历史');
     else {
       for (let i = 0; i < history.length; i++) {
-        const item = history[i]
+        const item = history[i];
         doc
           .fontSize(10)
-          .text('Action by: ..... ' + item.owner.fullname)
-          .text('Date: ............ ' + moment(item.date).format('MM-DD-YYYY HH:mm:ss'))
+          .text('操作人: ..... ' + item.owner.fullname)
+          .text('时间: ............ ' + moment(item.date).format('MM-DD-YYYY HH:mm:ss'))
           .moveDown()
-          .text(item.description)
+          .text(item.description);
 
-        doc
-          .moveDown()
-          .moveTo(this.beginningOfPage, doc.y)
-          .lineTo(this.endOfPage, doc.y)
-          .stroke('#bbb')
-          .moveDown(2)
+        doc.moveDown().moveTo(this.beginningOfPage, doc.y).lineTo(this.endOfPage, doc.y).stroke('#bbb').moveDown(2);
       }
     }
   }
 
-  generate (callback) {
-    const filename = 'Ticket#' + this.ticket.uid + '.pdf'
-    const theOutput = new PDFDocument({ bufferPages: true })
-    const buffers = []
-    const obj = {}
-    theOutput.on('data', buffers.push.bind(buffers))
+  generate(callback) {
+    const filename = 'Ticket#' + this.ticket.uid + '.pdf';
+    const theOutput = new PDFDocument({ bufferPages: true });
+    const buffers = [];
+    const obj = {};
+    theOutput.on('data', buffers.push.bind(buffers));
     theOutput.on('end', function () {
-      const pdfData = Buffer.concat(buffers)
+      const pdfData = Buffer.concat(buffers);
       obj.headers = {
         'Content-Length': Buffer.byteLength(pdfData),
         'Content-Type': 'application/pdf',
-        'Content-disposition': 'attachment;filename=' + filename
-      }
-      obj.data = pdfData
+        'Content-disposition': 'attachment;filename=' + filename,
+      };
+      obj.data = pdfData;
 
-      return callback(null, obj)
-    })
+      return callback(null, obj);
+    });
 
     theOutput.on('error', function (err) {
-      return callback(err)
-    })
+      return callback(err);
+    });
 
-    this.generateHeaders(theOutput)
-    theOutput.moveDown()
-    this.generateIssue(theOutput)
-    this.generateComments(theOutput)
-    this.generateTicketHistory(theOutput)
+    this.generateHeaders(theOutput);
+    theOutput.moveDown();
+    this.generateIssue(theOutput);
+    this.generateComments(theOutput);
+    this.generateTicketHistory(theOutput);
 
-    theOutput.end()
+    theOutput.end();
   }
 }
 
-module.exports = TicketPDFGenerator
+module.exports = TicketPDFGenerator;

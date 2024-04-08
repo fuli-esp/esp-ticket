@@ -283,7 +283,7 @@ class BackupRestoreSettingsContainer extends React.Component {
                   </div>
                   {!this.props.settings.backingup && (
                     <Button
-                      text={'Backup Now'}
+                      text={'现在备份'}
                       style={'success'}
                       small={true}
                       styleOverride={{ width: '115px' }}
@@ -354,13 +354,13 @@ class BackupRestoreSettingsContainer extends React.Component {
                                 download
                               </a>
                               <Button
-                                text={'Restore'}
+                                text={'恢复'}
                                 small={true}
                                 waves={true}
                                 onClick={e => this.oneRestoreClicked(e, backup)}
                               />
                               <Button
-                                text={'Delete'}
+                                text={'删除'}
                                 small={true}
                                 style={'danger'}
                                 waves={true}
@@ -416,14 +416,14 @@ class BackupRestoreSettingsContainer extends React.Component {
                         <td className='uk-text-right valign-middle'>
                           <ButtonGroup>
                             <Button
-                              text={'Delete'}
+                              text={'删除'}
                               style={'danger'}
                               small={true}
                               waves={true}
                               onClick={e => this.onDeleteTicketClicked(e, ticket)}
                             />
                             <Button
-                              text={'Restore'}
+                              text={'恢复'}
                               small={true}
                               waves={true}
                               onClick={e => this.onRestoreTicketClicked(e, ticket)}

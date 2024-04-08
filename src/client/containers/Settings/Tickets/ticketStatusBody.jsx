@@ -121,7 +121,7 @@ class TicketStatusBody extends React.Component {
             />
           </div>
           <div className={'uk-margin-large-top'} style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button text={'Save Status'} style={'success'} onClick={e => this.onSaveClicked(e)} />
+            <Button text={'保存状态'} style={'success'} onClick={e => this.onSaveClicked(e)} />
           </div>
         </form>
         {!this.props.status.get('isLocked') && (
@@ -137,7 +137,7 @@ class TicketStatusBody extends React.Component {
                   </div>
                   <div className='uk-float-right' style={{ paddingTop: '10px' }}>
                     <Button
-                      text={'Delete'}
+                      text={'删除'}
                       small={true}
                       style={'danger'}
                       onClick={e => this.showDeleteTicketStatusModal(e, this.props.status)}

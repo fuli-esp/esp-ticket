@@ -135,14 +135,14 @@ class NoticeContainer extends React.Component {
     return (
       <div>
         <PageTitle
-          title={'Notices'}
+          title={'通知'}
           shadow={false}
           rightComponent={
             <div className={'uk-grid uk-grid-collapse'}>
               <div className={'uk-width-1-1 mt-15 uk-text-right'}>
                 {helpers.canUser('notices:deactivate') && (
                   <Button
-                    text={'Deactivate'}
+                    text={'禁用'}
                     flat={false}
                     small={true}
                     waves={false}
@@ -152,7 +152,7 @@ class NoticeContainer extends React.Component {
                 )}
                 {helpers.canUser('notices:create') && (
                   <Button
-                    text={'Create'}
+                    text={'创建'}
                     flat={false}
                     small={true}
                     waves={false}
@@ -174,16 +174,16 @@ class NoticeContainer extends React.Component {
             striped={true}
             headers={[
               <TableHeader key={0} width={45} height={50} text={''} />,
-              <TableHeader key={1} width={'20%'} text={'Name'} />,
-              <TableHeader key={2} width={'60%'} text={'Message'} />,
-              <TableHeader key={3} width={'10%'} text={'Date'} />,
+              <TableHeader key={1} width={'20%'} text={'姓名'} />,
+              <TableHeader key={2} width={'60%'} text={'消息'} />,
+              <TableHeader key={3} width={'10%'} text={'日期'} />,
               <TableHeader key={4} width={150} text={''} />
             ]}
           >
             {!this.props.loading && this.props.notices.size < 1 && (
               <TableRow clickable={false}>
                 <TableCell colSpan={10}>
-                  <h5 style={{ margin: 10 }}>No Notices Found</h5>
+                  <h5 style={{ margin: 10 }}>暂无通知</h5>
                 </TableCell>
               </TableRow>
             )}

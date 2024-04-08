@@ -12,7 +12,8 @@ export default function D3Pie (props) {
 
   useEffect(() => {
     if (pieChart.current && props.data.length > 0) {
-      mappedColors = shuffle(props.colors)
+    //   mappedColors = shuffle(props.colors)
+      mappedColors = props.colors
       mappedColors = zipObject(
         map(props.data, v => v[0]),
         mappedColors
@@ -57,7 +58,7 @@ D3Pie.defaultProps = {
   data: [],
   type: 'pie',
   size: 200,
-  emptyLabel: 'No Data Available',
+  emptyLabel: '暂无数据',
   colors: [
     '#e74c3c',
     '#3498db',

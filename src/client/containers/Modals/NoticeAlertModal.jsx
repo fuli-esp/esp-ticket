@@ -64,7 +64,7 @@ class NoticeAlertModal extends React.Component {
               Important: {notice.message}
             </p>
             <Button
-              text={'Confirm'}
+              text={'确认'}
               flat={true}
               style={'success'}
               extraClass={'uk-float-right'}

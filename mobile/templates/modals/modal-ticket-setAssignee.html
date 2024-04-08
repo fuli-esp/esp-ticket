@@ -1,6 +1,6 @@
 <ion-modal-view>
   <ion-header-bar class="bar-dark">
-    <h1 class="title">Set Assignee</h1>
+    <h1 class="title">设定负责人</h1>
     <div class="buttons">
       <button class="button button-icon button-clear ion-ios-close-empty" style="color: white;" ng-click="closeSetAssigneeModal()"></button>
     </div>
@@ -10,14 +10,14 @@
       <div class="list">
         <label class="item item-input item-select">
           <div class="input-label">
-            Ticket Assignee
+           工单负责人
           </div>
           <select id="selectedAssignee" name="selectedAssignee" ng-model="selectedAssignee" ng-options="user._id as user.fullname for user in assignees" ng-change="setAssigneeChanged()"></select>
         </label>
       </div>
 
       <div class="padding">
-        <button class="button button-full button-balanced" type="submit">Set Assignee</button>
+        <button class="button button-full button-balanced" type="submit">设定负责人</button>
       </div>
 
     </form>

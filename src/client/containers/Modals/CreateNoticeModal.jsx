@@ -63,11 +63,11 @@ class CreateNoticeModal extends React.Component {
     return (
       <BaseModal {...this.props} options={{ bgclose: false }}>
         <div className={'mb-25'}>
-          <h2>Create Notice</h2>
+          <h2>创建通知</h2>
         </div>
         <form className={'uk-form-stacked'} onSubmit={e => this.onFormSubmit(e)}>
           <div className={'uk-margin-medium-bottom'}>
-            <label>Name</label>
+            <label>姓名</label>
             <input
               type='text'
               className={'md-input'}
@@ -79,7 +79,7 @@ class CreateNoticeModal extends React.Component {
             />
           </div>
           <div className={'uk-margin-medium-bottom'}>
-            <label>Message</label>
+            <label>消息</label>
             <textarea
               className={'md-input'}
               value={this.message}
@@ -90,7 +90,7 @@ class CreateNoticeModal extends React.Component {
             />
           </div>
           <div>
-            <span style={{ display: 'inline-block', float: 'left', paddingTop: 5 }}>Background Color</span>
+            <span style={{ display: 'inline-block', float: 'left', paddingTop: 5 }}>背景颜色</span>
             <PopoverColorPicker
               color={this.color}
               onChange={c => {
@@ -98,7 +98,7 @@ class CreateNoticeModal extends React.Component {
               }}
               style={{ float: 'left', marginLeft: 5, marginRight: 15 }}
             />
-            <span style={{ display: 'inline-block', float: 'left', paddingTop: 5 }}>Font Color</span>
+            <span style={{ display: 'inline-block', float: 'left', paddingTop: 5 }}>字体颜色</span>
             <PopoverColorPicker
               color={this.fontColor}
               onChange={c => {
@@ -109,8 +109,8 @@ class CreateNoticeModal extends React.Component {
           </div>
 
           <div className='uk-modal-footer uk-text-right'>
-            <Button text={'Close'} flat={true} waves={true} extraClass={'uk-modal-close'} />
-            <Button text={'Create Notice'} flat={true} waves={true} style={'primary'} type={'submit'} />
+            <Button text={'关闭'} flat={true} waves={true} extraClass={'uk-modal-close'} />
+            <Button text={'创建通知'} flat={true} waves={true} style={'primary'} type={'submit'} />
           </div>
         </form>
       </BaseModal>

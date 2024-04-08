@@ -53,7 +53,7 @@ class TicketStatusContainer extends React.Component {
           subtitle={'Ticket status sets the state of a ticket. (Active, Pending, Resolved, etc.)'}
           rightComponent={
             <Button
-              text={'Create'}
+              text={'创建'}
               style={'success'}
               flat={true}
               waves={true}

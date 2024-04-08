@@ -90,8 +90,8 @@ class EditStatusPartial extends React.Component {
             </div>
             <div className='uk-width-1-4'>
               <div className='md-btn-group uk-float-right uk-text-right mt-5'>
-                <Button small={true} text={'Cancel'} onClick={() => this.toggleEditStatus()} />
-                <Button text={'Save'} small={true} style={'success'} type={'submit'} />
+                <Button small={true} text={'取消'} onClick={() => this.toggleEditStatus()} />
+                <Button text={'保存'} small={true} style={'success'} type={'submit'} />
               </div>
             </div>
           </div>

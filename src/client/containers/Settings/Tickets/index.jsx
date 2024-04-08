@@ -354,7 +354,7 @@ class TicketsSettings extends React.Component {
           subtitle={'Create/Modify Ticket Types'}
           rightComponent={
             <Button
-              text={'Create'}
+              text={'创建'}
               style={'success'}
               flat={true}
               extraClass={'md-btn-wave'}
@@ -372,7 +372,7 @@ class TicketsSettings extends React.Component {
           subtitle={'Ticket priorities set the level of SLAs for each ticket.'}
           component={
             <Button
-              text={'Create'}
+              text={'创建'}
               style={'success'}
               flat={true}
               waves={true}
@@ -397,9 +397,9 @@ class TicketsSettings extends React.Component {
                     }
                     component={
                       <ButtonGroup classNames={'uk-float-right'}>
-                        <Button text={'Edit'} small={true} onClick={e => TicketsSettings.toggleEditPriority(e)} />
+                        <Button text={'编辑'} small={true} onClick={e => TicketsSettings.toggleEditPriority(e)} />
                         <Button
-                          text={'Remove'}
+                          text={'移除'}
                           small={true}
                           style={'danger'}
                           disabled={disableRemove}
@@ -464,7 +464,7 @@ class TicketsSettings extends React.Component {
           subtitle={'Create/Modify Ticket Tags'}
           component={
             <Button
-              text={'Create'}
+              text={'创建'}
               style={'success'}
               flat={true}
               waves={true}
@@ -508,14 +508,14 @@ class TicketsSettings extends React.Component {
                               <GridItem width={'1-2'} extraClass={'uk-text-right'}>
                                 <ButtonGroup classNames={'mt-5'}>
                                   <Button
-                                    text={'edit'}
+                                    text={'编辑'}
                                     flat={true}
                                     waves={true}
                                     small={true}
                                     onClick={e => TicketsSettings.toggleEditTag(e)}
                                   />
                                   <Button
-                                    text={'remove'}
+                                    text={'移除'}
                                     flat={true}
                                     waves={true}
                                     style={'danger'}
@@ -538,7 +538,7 @@ class TicketsSettings extends React.Component {
                               <GridItem width={'1-3'} style={{ paddingTop: '10px' }}>
                                 <ButtonGroup classNames={'uk-float-right uk-text-right'}>
                                   <Button
-                                    text={'cancel'}
+                                    text={'取消'}
                                     flat={true}
                                     waves={true}
                                     small={true}
@@ -546,7 +546,7 @@ class TicketsSettings extends React.Component {
                                   />
                                   <Button
                                     type={'submit'}
-                                    text={'save'}
+                                    text={'保存'}
                                     flat={true}
                                     waves={true}
                                     small={true}

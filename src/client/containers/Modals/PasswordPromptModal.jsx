@@ -52,9 +52,9 @@ class PasswordPromptModal extends React.Component {
           <Input name={'current-password'} type={'password'} onChange={val => (this.confirmPassword = val)} />
         </div>
         <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-          <Button text={'Cancel'} small={true} flat={true} waves={false} onClick={() => this.props.hideModal()} />
+          <Button text={'取消'} small={true} flat={true} waves={false} onClick={() => this.props.hideModal()} />
           <Button
-            text={'Verify Password'}
+            text={'验证密码'}
             style={'primary'}
             small={true}
             waves={true}

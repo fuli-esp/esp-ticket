@@ -314,12 +314,12 @@ class SingleTicketContainer extends React.Component {
                 <div className='page-content-left full-height scrollable'>
                   <div className='ticket-details-wrap uk-position-relative uk-clearfix'>
                     <div className='ticket-assignee-wrap uk-clearfix' style={{ paddingRight: 30 }}>
-                      <h4>Assignee</h4>
+                      <h4>负责人</h4>
                       <div className='ticket-assignee uk-clearfix'>
                         {hasTicketUpdate && (
                           <a
                             role='button'
-                            title='Set Assignee'
+                            title='设置负责人'
                             style={{ float: 'left' }}
                             className='relative no-ajaxy'
                             onClick={() => this.props.socket.emit(TICKETS_ASSIGNEE_LOAD)}
@@ -542,7 +542,7 @@ class SingleTicketContainer extends React.Component {
                     {helpers.canUser('agent:*', true) && (
                       <div className='uk-width-1-1 padding-left-right-15'>
                         <div className='tru-card ticket-details pr-0 pb-0' style={{ height: 250 }}>
-                          Ticket History
+                          工单历史
                           <hr style={{ padding: 0, margin: 0 }} />
                           <div className='history-items scrollable' style={{ paddingTop: 12 }}>
                             {this.ticket.history &&
@@ -552,7 +552,7 @@ class SingleTicketContainer extends React.Component {
                                     dateTime={helpers.formatDate(item.date, this.props.common.get('longDateFormat'))}
                                   />
                                   <em>
-                                    Action by: <span>{item.owner.fullname}</span>
+                                    操作人: <span>{item.owner.fullname}</span>
                                   </em>
                                   <p>{item.description}</p>
                                 </div>
@@ -590,7 +590,7 @@ class SingleTicketContainer extends React.Component {
                         helpers.scrollToBottom('.page-content-right', true)
                       }}
                     >
-                      Add Comment
+                     添加评论 
                     </a>
                   </div>
                   <div
@@ -649,21 +649,21 @@ class SingleTicketContainer extends React.Component {
                         <TruTabSelectors style={{ marginLeft: 110 }}>
                           <TruTabSelector
                             selectorId={0}
-                            label='All'
+                            label='所有'
                             active={true}
                             showBadge={true}
                             badgeText={this.commentsAndNotes.length}
                           />
                           <TruTabSelector
                             selectorId={1}
-                            label='Comments'
+                            label='评论'
                             showBadge={true}
                             badgeText={this.ticket ? this.ticket.comments && this.ticket.comments.length : 0}
                           />
                           {helpers.canUser('tickets:notes', true) && (
                             <TruTabSelector
                               selectorId={2}
-                              label='Notes'
+                              label='内部备注'
                               showBadge={true}
                               badgeText={this.ticket ? this.ticket.notes && this.ticket.notes.length : 0}
                             />
@@ -794,12 +794,12 @@ class SingleTicketContainer extends React.Component {
                           <TruTabWrapper style={{ paddingLeft: 85 }}>
                             <TruTabSelectors showTrack={false}>
                               {helpers.canUser('comments:create', true) && (
-                                <TruTabSelector selectorId={0} label={'Comment'} active={true} />
+                                <TruTabSelector selectorId={0} label={'评论'} active={true} />
                               )}
                               {helpers.canUser('tickets:notes', true) && (
                                 <TruTabSelector
                                   selectorId={1}
-                                  label={'Internal Note'}
+                                  label={'内部备注'}
                                   active={!helpers.canUser('comments:create', true)}
                                 />
                               )}
@@ -823,7 +823,7 @@ class SingleTicketContainer extends React.Component {
                                       className='uk-button uk-button-accent'
                                       style={{ padding: '10px 15px' }}
                                     >
-                                      Post Comment
+                                      发表评论
                                     </button>
                                   </div>
                                 </div>
@@ -848,7 +848,7 @@ class SingleTicketContainer extends React.Component {
                                       className='uk-button uk-button-accent'
                                       style={{ padding: '10px 15px' }}
                                     >
-                                      Save Note
+                                       保存备注
                                     </button>
                                   </div>
                                 </div>
@@ -861,7 +861,7 @@ class SingleTicketContainer extends React.Component {
                 </div>
               </div>
             </div>
-            <OffCanvasEditor primaryLabel={'Save Edit'} ref={r => (this.editorWindow = r)} />
+            <OffCanvasEditor primaryLabel={'保存编辑'} ref={r => (this.editorWindow = r)} />
           </Fragment>
         )}
       </div>

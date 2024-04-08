@@ -329,7 +329,7 @@ class ProfileContainer extends React.Component {
                     </p>
                   </div>
                   <Button
-                    text={'Edit Profile'}
+                    text={'编辑资料'}
                     small={true}
                     waves={true}
                     style={'primary'}
@@ -426,12 +426,12 @@ class ProfileContainer extends React.Component {
                       {this.editingProfile && (
                         <div className={'uk-display-flex uk-margin-large-top'}>
                           <Button
-                            text={'Save'}
+                            text={'保存'}
                             style={'primary'}
                             small={true}
                             onClick={e => this.onSaveProfileClicked(e)}
                           />
-                          <Button text={'Cancel'} small={true} onClick={() => (this.editingProfile = false)} />
+                          <Button text={'取消'} small={true} onClick={() => (this.editingProfile = false)} />
                         </div>
                       )}
                     </div>
@@ -471,7 +471,7 @@ class ProfileContainer extends React.Component {
                               <div>
                                 <Button
                                   type={'submit'}
-                                  text={'Update Password'}
+                                  text={'更新密码'}
                                   style={'primary'}
                                   small={true}
                                   extraClass={'uk-width-1-1'}
@@ -500,7 +500,7 @@ class ProfileContainer extends React.Component {
                                     </p>
                                     <div>
                                       <Button
-                                        text={'Enable'}
+                                        text={'启用'}
                                         style={'primary'}
                                         small={true}
                                         waves={true}
@@ -571,7 +571,7 @@ class ProfileContainer extends React.Component {
                                         <Input type={'text'} onChange={val => (this.l2VerifyText = val)} />
                                         <div style={{ marginTop: 25 }}>
                                           <Button
-                                            text={'Verify and continue'}
+                                            text={'验证并继续'}
                                             style={'primary'}
                                             small={true}
                                             waves={true}
@@ -599,7 +599,7 @@ class ProfileContainer extends React.Component {
                                 </p>
                                 <div>
                                   <Button
-                                    text={'Disable'}
+                                    text={'禁用'}
                                     style={'danger'}
                                     small={true}
                                     onClick={e => this.onDisableMFAClicked(e)}
@@ -625,7 +625,7 @@ class ProfileContainer extends React.Component {
                       </div>
                       <div>
                         <Button
-                          text={'Save Preferences'}
+                          text={'保存偏好'}
                           style={'primary'}
                           small={true}
                           type={'button'}

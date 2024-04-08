@@ -105,7 +105,7 @@ class PermissionsSettingsContainer extends React.Component {
           }
           rightComponent={
             <Button
-              text={'Create'}
+              text={'创建'}
               style={'success'}
               flat={true}
               waves={true}

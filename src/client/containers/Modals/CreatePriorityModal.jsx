@@ -99,8 +99,8 @@ class CreatePriorityModal extends React.Component {
                 </div>
               </div>
               <div className='uk-modal-footer uk-text-right'>
-                <Button text={'Cancel'} type={'button'} extraClass={'uk-modal-close'} flat={true} waves={true} />
-                <Button text={'Create'} type={'submit'} flat={true} waves={true} style={'success'} />
+                <Button text={'取消'} type={'button'} extraClass={'uk-modal-close'} flat={true} waves={true} />
+                <Button text={'创建'} type={'submit'} flat={true} waves={true} style={'success'} />
               </div>
             </div>
           </div>

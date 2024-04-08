@@ -61,7 +61,7 @@ class ConversationsDropdownPartial extends React.Component {
       <PDropDown
         ref={forwardedRef}
         id={'conversations'}
-        title={'Conversations'}
+        title={'对话'}
         titleHref={'/messages'}
         topOffset={-4}
         leftOffset={4}
@@ -81,7 +81,7 @@ class ConversationsDropdownPartial extends React.Component {
                 History.pushState(null, null, '/messages')
               }}
             >
-              View All Conversations
+              查看所有对话
             </a>
           </div>
         }

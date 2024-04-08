@@ -90,8 +90,8 @@ class DeletePriorityModal extends React.Component {
               </span>
             </div>
             <div className='uk-modal-footer uk-text-right'>
-              <Button type={'button'} flat={true} waves={true} text={'Cancel'} extraClass={'uk-modal-close'} />
-              <Button type={'submit'} flat={true} waves={true} text={'Delete'} style={'danger'} />
+              <Button type={'button'} flat={true} waves={true} text={'取消'} extraClass={'uk-modal-close'} />
+              <Button type={'submit'} flat={true} waves={true} text={'删除'} style={'danger'} />
             </div>
           </form>
         </div>

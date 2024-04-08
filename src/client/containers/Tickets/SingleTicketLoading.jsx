@@ -34,13 +34,13 @@ class SingleTicketLoading extends React.Component {
             style={{ width: 360, maxWidth: 360, minWidth: 360 }}
           >
             <div className='page-title-border-right relative' style={{ padding: '0 30px' }}>
-              <p>Ticket </p>
+              <p>工单 </p>
             </div>
             {/*  Left Side */}
             <div className='page-content-left full-height scrollable'>
               <div className='ticket-details-wrap uk-position-relative uk-clearfix'>
                 <div className='ticket-assignee-wrap uk-clearfix' style={{ paddingRight: 30 }}>
-                  <h4>Assignee</h4>
+                  <h4>负责人</h4>
                   <div className='ticket-assignee uk-clearfix'>
                     <Avatar image={undefined} showOnlineBubble={false} />
                     <div className='ticket-assignee-details'>
@@ -102,7 +102,7 @@ class SingleTicketLoading extends React.Component {
           <div className='page-title-right noshadow'>
             <div className='page-top-comments uk-float-right'>
               <a role='button' className='btn no-ajaxy'>
-                Add Comment
+               添加评论 
               </a>
             </div>
             <div

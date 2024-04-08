@@ -269,7 +269,7 @@ class ElasticsearchSettingsContainer extends React.Component {
             </div>
             <div className='uk-clearfix'>
               <Button
-                text={'Apply'}
+                text={'应用'}
                 type={'submit'}
                 flat={true}
                 waves={true}
@@ -288,7 +288,7 @@ class ElasticsearchSettingsContainer extends React.Component {
           }
           component={
             <Button
-              text={'Rebuild'}
+              text={'重新构建'}
               flat={false}
               waves={true}
               style={'primary'}

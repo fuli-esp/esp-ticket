@@ -137,7 +137,7 @@ class AddPriorityToTypeModal extends React.Component {
             })}
           </div>
           <div className='uk-modal-footer uk-text-right'>
-            <Button type={'button'} flat={true} waves={true} text={'Close'} extraClass={'uk-modal-close'} />
+            <Button type={'button'} flat={true} waves={true} text={'关闭'} extraClass={'uk-modal-close'} />
           </div>
         </form>
       </BaseModal>

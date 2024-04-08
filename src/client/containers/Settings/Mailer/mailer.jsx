@@ -204,7 +204,7 @@ class MailerSettings_Mailer extends React.Component {
           </div>
           <div className='uk-clearfix'>
             <Button
-              text={'Test Settings'}
+              text={'测试设置'}
               type={'button'}
               flat={true}
               waves={true}
@@ -214,7 +214,7 @@ class MailerSettings_Mailer extends React.Component {
               onClick={e => this.testMailerSettings(e)}
             />
             <Button
-              text={'Apply'}
+              text={'应用'}
               type={'submit'}
               style={'success'}
               extraClass={'uk-float-right'}

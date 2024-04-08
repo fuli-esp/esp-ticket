@@ -40,9 +40,9 @@ class LinkWarningModal extends React.Component {
           </p>
         </div>
         <div className='uk-modal-footer uk-text-right'>
-          <Button text={'Cancel'} extraClass={'uk-modal-close'} flat={true} waves={true} />
+          <Button text={'取消'} extraClass={'uk-modal-close'} flat={true} waves={true} />
           <Button
-            text={'Proceed'}
+            text={'继续'}
             type={'submit'}
             flat={true}
             waves={true}
