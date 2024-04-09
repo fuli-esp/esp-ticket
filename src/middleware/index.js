@@ -12,141 +12,142 @@
  *  Copyright (c) 2014-2019. All rights reserved.
  */
 
-const path = require('path')
-const async = require('async')
-const express = require('express')
-const expressStaticGzip = require('express-static-gzip')
-const mongoose = require('mongoose')
-const APC = require('@handlebars/allow-prototype-access')
-const HandleBars = require('handlebars')
-const insecureHandlebars = APC.allowInsecurePrototypeAccess(HandleBars)
-const hbs = require('express-hbs')
-const hbsHelpers = require('../helpers/hbs/helpers')
-const winston = require('../logger')
-const nconf = require('nconf')
-const flash = require('connect-flash')
-const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser')
-const session = require('express-session')
-const MongoStore = require('connect-mongo')
-const passportConfig = require('../passport')()
+const path = require('path');
+const async = require('async');
+const express = require('express');
+const expressStaticGzip = require('express-static-gzip');
+const mongoose = require('mongoose');
+const APC = require('@handlebars/allow-prototype-access');
+const HandleBars = require('handlebars');
+const insecureHandlebars = APC.allowInsecurePrototypeAccess(HandleBars);
+const hbs = require('express-hbs');
+const hbsHelpers = require('../helpers/hbs/helpers');
+const winston = require('../logger');
+const nconf = require('nconf');
+const flash = require('connect-flash');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo');
+const passportConfig = require('../passport')();
 
-let middleware = {}
+let middleware = {};
 
 module.exports = function (app, db, callback) {
-  middleware = require('./middleware')(app)
-  app.disable('x-powered-by')
+  middleware = require('./middleware')(app);
+  app.disable('x-powered-by');
 
-  app.set('views', path.join(__dirname, '../views/'))
+  app.set('views', path.join(__dirname, '../views/'));
 
   app.engine(
     'hbs',
     hbs.express4({
       handlebars: insecureHandlebars,
       defaultLayout: path.join(__dirname, '../views/layout/main.hbs'),
-      partialsDir: [path.join(__dirname, '../views/partials/'), path.join(__dirname, '../views/subviews/reports')]
+      partialsDir: [path.join(__dirname, '../views/partials/'), path.join(__dirname, '../views/subviews/reports')],
     })
-  )
-  app.set('view engine', 'hbs')
-  hbsHelpers.register(hbs.handlebars)
+  );
+  app.set('view engine', 'hbs');
+  hbsHelpers.register(hbs.handlebars);
   // Required to access handlebars in mail templates
-  global.Handlebars = hbs.handlebars
+  global.Handlebars = hbs.handlebars;
 
-  app.use(bodyParser.urlencoded({ limit: '2mb', extended: false }))
-  app.use(bodyParser.json({ limit: '2mb' }))
-  app.use(cookieParser())
+  app.use(bodyParser.urlencoded({ limit: '2mb', extended: false }));
+  app.use(bodyParser.json({ limit: '2mb' }));
+  app.use(cookieParser());
 
   if (global.env === 'production') {
     app.use(
       expressStaticGzip(path.join(__dirname, '../../public'), {
-        index: false
+        index: false,
       })
-    )
-  } else app.use(express.static(path.join(__dirname, '../../public')))
+    );
+  } else app.use(express.static(path.join(__dirname, '../../public')));
 
   app.use(function (req, res, next) {
+    console.log(new Date().toISOString(), 'middleware mongoose.connection.readyState', mongoose.connection.readyState);
     if (mongoose.connection.readyState !== 1) {
-      const err = new Error('MongoDb Connection Error')
-      err.status = 503
+      const err = new Error('MongoDb Connection Error');
+      err.status = 503;
 
-      return res.render('503', { layout: false })
+      return res.render('503', { layout: false });
     }
 
-    return next()
-  })
+    return next();
+  });
 
   const cookie = {
     httpOnly: true,
-    maxAge: 1000 * 60 * 60 * 24 * 365 // 1 year
-  }
+    maxAge: 1000 * 60 * 60 * 24 * 365, // 1 year
+  };
 
-  const sessionSecret = nconf.get('tokens:secret') ? nconf.get('tokens:secret') : 'trudesk$1234#SessionKeY!2288'
+  const sessionSecret = nconf.get('tokens:secret') ? nconf.get('tokens:secret') : 'trudesk$1234#SessionKeY!2288';
 
   async.waterfall(
     [
       function (next) {
         const sessionStore = MongoStore.create({
           client: db.connection.getClient(),
-          autoReconnect: true
-        })
+          autoReconnect: true,
+        });
         app.use(
           session({
             secret: sessionSecret,
             cookie,
             store: sessionStore,
             saveUninitialized: false,
-            resave: false
+            resave: false,
           })
-        )
+        );
 
-        next(null, sessionStore)
+        next(null, sessionStore);
       },
       function (store, next) {
-        app.use(passportConfig.initialize())
-        app.use(passportConfig.session())
-        app.use(flash())
+        app.use(passportConfig.initialize());
+        app.use(passportConfig.session());
+        app.use(flash());
 
         // CORS
-        app.use(allowCrossDomain)
-        const csrf = require('../dependencies/csrf-td')
-        csrf.init()
-        app.use(csrf.generateToken)
+        app.use(allowCrossDomain);
+        const csrf = require('../dependencies/csrf-td');
+        csrf.init();
+        app.use(csrf.generateToken);
 
         // Maintenance Mode
         app.use(function (req, res, next) {
-          var settings = require('../settings/settingsUtil')
+          var settings = require('../settings/settingsUtil');
           settings.getSettings(function (err, setting) {
-            if (err) return winston.warn(err)
-            var maintenanceMode = setting.data.settings.maintenanceMode
+            if (err) return winston.warn(err);
+            var maintenanceMode = setting.data.settings.maintenanceMode;
 
             if (req.user) {
               if (maintenanceMode.value === true && !req.user.role.isAdmin) {
-                return res.render('maintenance', { layout: false })
+                return res.render('maintenance', { layout: false });
               }
             }
 
-            return next()
-          })
-        })
+            return next();
+          });
+        });
 
         // Mobile - Disable mobile view until rewrite due to a security bug
-        // app.use('/mobile', express.static(path.join(__dirname, '../../', 'mobile')))
-        app.use('/mobile', (req, res, next) => {
-          return res.redirect('/')
-        })
+        app.use('/mobile', express.static(path.join(__dirname, '../../', 'mobile')));
+        // app.use('/mobile', (req, res, next) => {
+        //   return res.redirect('/');
+        // });
 
-        app.use('/assets', express.static(path.join(__dirname, '../../public/uploads/assets')))
-        app.use('/uploads/users', express.static(path.join(__dirname, '../../public/uploads/users')))
-        app.use('/uploads', middleware.hasAuth, express.static(path.join(__dirname, '../../public/uploads')))
+        app.use('/assets', express.static(path.join(__dirname, '../../public/uploads/assets')));
+        app.use('/uploads/users', express.static(path.join(__dirname, '../../public/uploads/users')));
+        app.use('/uploads', middleware.hasAuth, express.static(path.join(__dirname, '../../public/uploads')));
         app.use(
           '/backups',
           middleware.hasAuth,
           middleware.isAdmin,
           express.static(path.join(__dirname, '../../backups'))
-        )
+        );
 
         // Uncomment to enable plugins
-        return next(null, store)
+        return next(null, store);
         // global.plugins = [];
         // var dive = require('dive');
         // dive(path.join(__dirname, '../../plugins'), {directories: true, files: false, recursive: false}, function(err, dir) {
@@ -165,31 +166,31 @@ module.exports = function (app, db, callback) {
         // }, function() {
         //     next(null, store);
         // });
-      }
+      },
     ],
     function (err, s) {
       if (err) {
-        winston.error(err)
-        throw new Error(err)
+        winston.error(err);
+        throw new Error(err);
       }
 
-      callback(middleware, s)
+      callback(middleware, s);
     }
-  )
-}
+  );
+};
 
-function allowCrossDomain (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS')
+function allowCrossDomain(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
   res.setHeader(
     'Access-Control-Allow-Headers',
     'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,accesstoken,X-RToken,X-Token'
-  )
-  res.setHeader('Content-Security-Policy', "frame-ancestors 'none';")
+  );
+  res.setHeader('Content-Security-Policy', "frame-ancestors 'none';");
 
   if (req.method === 'OPTIONS') {
-    res.sendStatus(200)
+    res.sendStatus(200);
   } else {
-    next()
+    next();
   }
 }

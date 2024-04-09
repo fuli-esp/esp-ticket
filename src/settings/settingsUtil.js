@@ -150,9 +150,8 @@ util.getSettings = async (callback) => {
 
         const roles = await roleSchema.getRoles();
         let roleOrder = await roleOrderSchema.getOrder();
-        console.log('roleSchema', roleSchema, roleSchema?.toString?.());
-        console.log('roles', roles);
-        console.log('roleOrder', roleOrder);
+        console.log(new Date().toISOString(), 'roles & roleOrder', roles, roleOrder);
+
         roleOrder = roleOrder?.order ?? [];
 
         if (roleOrder.length > 0) {

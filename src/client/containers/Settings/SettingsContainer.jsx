@@ -38,7 +38,7 @@ class SettingsContainer extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      title: 'Settings',
+      title: '设置',
       activeCategory: 'settings-general'
     }
   }
@@ -84,42 +84,42 @@ class SettingsContainer extends React.Component {
           <div className='page-content-left noborder full-height'>
             <Menu>
               <MenuItem
-                title='General'
+                title='通用'
                 active={this.state.activeCategory === 'settings-general'}
                 onClick={e => {
                   this.onMenuItemClick(e, 'general')
                 }}
               />
               <MenuItem
-                title='Accounts'
+                title='账号'
                 active={this.state.activeCategory === 'settings-accounts'}
                 onClick={e => {
                   this.onMenuItemClick(e, 'accounts')
                 }}
               />
               <MenuItem
-                title='Appearance'
+                title='外观'
                 active={this.state.activeCategory === 'settings-appearance'}
                 onClick={e => {
                   this.onMenuItemClick(e, 'appearance')
                 }}
               />
               <MenuItem
-                title='Permissions'
+                title='权限'
                 active={this.state.activeCategory === 'settings-permissions'}
                 onClick={e => {
                   this.onMenuItemClick(e, 'permissions')
                 }}
               />
               <MenuItem
-                title='Tickets'
+                title='工单'
                 active={this.state.activeCategory === 'settings-tickets'}
                 onClick={e => {
                   this.onMenuItemClick(e, 'tickets')
                 }}
               />
               <MenuItem
-                title='Mailer'
+                title='邮件'
                 active={this.state.activeCategory === 'settings-mailer'}
                 onClick={e => {
                   this.onMenuItemClick(e, 'mailer')
@@ -133,26 +133,26 @@ class SettingsContainer extends React.Component {
                 }}
               />
               <MenuItem
-                title='Backup/Restore'
+                title='备份/恢复'
                 active={this.state.activeCategory === 'settings-backup'}
                 onClick={e => {
                   this.onMenuItemClick(e, 'backup')
                 }}
               />
               <MenuItem
-                title='Server'
+                title='服务器'
                 active={this.state.activeCategory === 'settings-server'}
                 onClick={e => {
                   this.onMenuItemClick(e, 'server')
                 }}
               />
-              <MenuItem
+              {/* <MenuItem
                 title='Legal'
                 active={this.state.activeCategory === 'settings-legal'}
                 onClick={e => {
                   this.onMenuItemClick(e, 'legal')
                 }}
-              />
+              /> */}
             </Menu>
           </div>
         </div>

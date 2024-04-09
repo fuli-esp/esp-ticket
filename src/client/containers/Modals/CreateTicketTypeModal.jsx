@@ -55,7 +55,7 @@ class CreateTicketTypeModal extends React.Component {
       <BaseModal {...this.props} ref={i => (this.base = i)}>
         <form className={'uk-form-stacked'} onSubmit={e => this.onCreateTicketTypeSubmit(e)}>
           <div>
-            <h2 className='nomargin mb-5'>Create Ticket Type</h2>
+            <h2 className='nomargin mb-5'>创建工单类型</h2>
             <p className='uk-text-small uk-text-muted'>Create a ticket type</p>
             <label htmlFor='typeName'>Type name</label>
             <input

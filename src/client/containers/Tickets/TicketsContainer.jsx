@@ -82,7 +82,7 @@ class TicketsContainer extends React.Component {
 
     this.timeline = anime.timeline({
       direction: 'alternate',
-      duration: 800,
+      duration: 1600,
       autoPlay: false,
       easing: 'steps(1)',
       loop: true,
@@ -91,7 +91,7 @@ class TicketsContainer extends React.Component {
 
     this.timeline.add({
       targets: 'tr.overdue td',
-      backgroundColor: '#b71c1c',
+      backgroundColor: '#B71C1C',
       color: '#ffffff'
     })
 

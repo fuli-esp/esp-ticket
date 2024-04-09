@@ -299,7 +299,7 @@ class SingleTicketContainer extends React.Component {
                 style={{ width: 360, maxWidth: 360, minWidth: 360 }}
               >
                 <div className='page-title-border-right relative' style={{ padding: '0 30px' }}>
-                  <p>Ticket #{this.ticket.uid}</p>
+                  <p>工单 #{this.ticket.uid}</p>
                   <StatusSelector
                     ticketId={this.ticket._id}
                     status={this.ticket.status._id}
@@ -342,7 +342,7 @@ class SingleTicketContainer extends React.Component {
                           />
                         )}
                         <div className='ticket-assignee-details'>
-                          {!this.ticket.assignee && <h3>No User Assigned</h3>}
+                          {!this.ticket.assignee && <h3>未被分配</h3>}
                           {this.ticket.assignee && (
                             <Fragment>
                               <h3>{this.ticket.assignee.fullname}</h3>
@@ -373,7 +373,7 @@ class SingleTicketContainer extends React.Component {
                         {/* Type */}
                         <div className='uk-width-1-2 uk-float-left nopadding'>
                           <div className='marginright5'>
-                            <span>Type</span>
+                            <span>类型</span>
                             {hasTicketUpdate && (
                               <select
                                 value={this.ticket.type._id}
@@ -415,7 +415,7 @@ class SingleTicketContainer extends React.Component {
                         {/* Priority */}
                         <div className='uk-width-1-2 uk-float-left nopadding'>
                           <div className='marginleft5'>
-                            <span>Priority</span>
+                            <span>优先级</span>
                             {hasTicketUpdate && (
                               <select
                                 name='tPriority'
@@ -442,7 +442,7 @@ class SingleTicketContainer extends React.Component {
                         </div>
                         {/*  Group */}
                         <div className='uk-width-1-1 nopadding uk-clearfix'>
-                          <span>Group</span>
+                          <span>组</span>
                           {hasTicketUpdate && (
                             <select
                               value={this.ticket.group._id}
@@ -465,7 +465,7 @@ class SingleTicketContainer extends React.Component {
                         </div>
                         {/*  Due Date */}
                         <div className='uk-width-1-1 p-0'>
-                          <span>Due Date</span> {hasTicketUpdate && <span>-&nbsp;</span>}
+                          <span>过期时间</span> {hasTicketUpdate && <span>-&nbsp;</span>}
                           {hasTicketUpdate && (
                             <div className={'uk-display-inline'}>
                               <a
@@ -478,7 +478,7 @@ class SingleTicketContainer extends React.Component {
                                   })
                                 }}
                               >
-                                Clear
+                                清除
                               </a>
                               <DatePicker
                                 name={'ticket_due_date'}
@@ -505,7 +505,7 @@ class SingleTicketContainer extends React.Component {
                         {/* Tags */}
                         <div className='uk-width-1-1 nopadding'>
                           <span>
-                            Tags
+                            标签
                             {hasTicketUpdate && (
                               <Fragment>
                                 <span> - </span>
@@ -521,7 +521,7 @@ class SingleTicketContainer extends React.Component {
                                       })
                                     }}
                                   >
-                                    Edit Tags
+                                    编辑标签
                                   </a>
                                 </div>
                               </Fragment>
@@ -577,7 +577,7 @@ class SingleTicketContainer extends React.Component {
                           this.transferToThirdParty(e)
                         }}
                       >
-                        Transfer to ThirdParty
+                        转到第三方
                       </a>
                     </div>
                   )}
