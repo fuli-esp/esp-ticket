@@ -96,7 +96,7 @@ mainController.about = function (req, res) {
 
 mainController.dashboard = function (req, res) {
   const content = {};
-  content.title = '仪表盘';
+  content.title = '数据报表';
   content.nav = 'dashboard';
 
   content.data = {};

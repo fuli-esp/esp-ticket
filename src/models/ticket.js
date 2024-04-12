@@ -293,7 +293,7 @@ ticketSchema.methods.setAssignee = function (ownerId, userId, callback) {
 
     const historyItem = {
       action: 'ticket:set:assignee',
-      description: user.fullname + ' 被安排为负责人',
+      description: user.fullname + ' 被分配为负责人',
       owner: ownerId,
     };
 

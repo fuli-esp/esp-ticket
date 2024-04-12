@@ -12,40 +12,40 @@
  *  Copyright (c) 2014-2019. All rights reserved.
  */
 
-import React from 'react'
-import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import { fetchGroups, deleteGroup } from 'actions/groups'
-import { showModal } from 'actions/common'
+import { fetchGroups, deleteGroup } from 'actions/groups';
+import { showModal } from 'actions/common';
 
-import Avatar from 'components/Avatar/Avatar'
-import PageTitle from 'components/PageTitle'
-import PageContent from 'components/PageContent'
-import Button from 'components/Button'
-import Table from 'components/Table'
-import TableHeader from 'components/Table/TableHeader'
-import TableRow from 'components/Table/TableRow'
-import TableCell from 'components/Table/TableCell'
-import ButtonGroup from 'components/ButtonGroup'
+import Avatar from 'components/Avatar/Avatar';
+import PageTitle from 'components/PageTitle';
+import PageContent from 'components/PageContent';
+import Button from 'components/Button';
+import Table from 'components/Table';
+import TableHeader from 'components/Table/TableHeader';
+import TableRow from 'components/Table/TableRow';
+import TableCell from 'components/Table/TableCell';
+import ButtonGroup from 'components/ButtonGroup';
 
-import UIKit from 'uikit'
-import helpers from 'lib/helpers'
+import UIKit from 'uikit';
+import helpers from 'lib/helpers';
 
 class GroupsContainer extends React.Component {
-  componentDidMount () {
-    this.props.fetchGroups({ type: 'all' })
+  componentDidMount() {
+    this.props.fetchGroups({ type: 'all' });
   }
 
-  onCreateGroupClick () {
-    this.props.showModal('CREATE_GROUP')
+  onCreateGroupClick() {
+    this.props.showModal('CREATE_GROUP');
   }
 
-  onEditGroupClick (group) {
-    this.props.showModal('EDIT_GROUP', { group })
+  onEditGroupClick(group) {
+    this.props.showModal('EDIT_GROUP', { group });
   }
 
-  onDeleteGroupClick (_id) {
+  onDeleteGroupClick(_id) {
     UIKit.modal.confirm(
       `<h2>Are you sure?</h2>
         <p style="font-size: 15px;">
@@ -57,19 +57,19 @@ class GroupsContainer extends React.Component {
         <span>Groups that are associated with ticket cannot be deleted.</span>
         `,
       () => {
-        this.props.deleteGroup({ _id })
+        this.props.deleteGroup({ _id });
       },
       {
         labels: { Ok: 'Yes', Cancel: 'No' },
-        confirmButtonClass: 'md-btn-danger'
+        confirmButtonClass: 'md-btn-danger',
       }
-    )
+    );
   }
 
-  render () {
-    const { groups } = this.props
+  render() {
+    const { groups } = this.props;
 
-    const tableItems = groups.map(group => {
+    const tableItems = groups.map((group) => {
       return (
         <TableRow key={group.get('_id')} className={'vam nbb'}>
           <TableCell style={{ fontWeight: 500, padding: '18px 15px' }}>{group.get('name')}</TableCell>
@@ -78,11 +78,11 @@ class GroupsContainer extends React.Component {
               group.get('members').size > 0 &&
               group
                 .get('members')
-                .filter(user => {
-                  return !user.get('deleted')
+                .filter((user) => {
+                  return !user.get('deleted');
                 })
-                .map(user => {
-                  const profilePic = user.get('image') || 'defaultProfile.jpg'
+                .map((user) => {
+                  const profilePic = user.get('image') || 'defaultProfile.jpg';
                   return (
                     <div
                       key={user.get('_id')}
@@ -92,7 +92,7 @@ class GroupsContainer extends React.Component {
                     >
                       <Avatar size={25} style={{ marginRight: 5 }} image={profilePic} userId={user.get('_id')} />
                     </div>
-                  )
+                  );
                 })}
             {!group.get('members') && <div />}
           </TableCell>
@@ -113,13 +113,13 @@ class GroupsContainer extends React.Component {
             </ButtonGroup>
           </TableCell>
         </TableRow>
-      )
-    })
+      );
+    });
 
     return (
       <div>
         <PageTitle
-          title={'Customer Groups'}
+          title={'代理店组'}
           rightComponent={
             <div className={'uk-grid uk-grid-collapse'}>
               <div className={'uk-width-1-1 mt-15 uk-text-right'}>
@@ -140,14 +140,14 @@ class GroupsContainer extends React.Component {
             headers={[
               <TableHeader key={0} width={'25%'} height={40} text={'姓名'} padding={'8px 8px 8px 15px'} />,
               <TableHeader key={1} width={'50%'} text={'组成员'} />,
-              <TableHeader key={2} width={130} text={'组动作'} />
+              <TableHeader key={2} width={130} text={'组动作'} />,
             ]}
           >
             {tableItems}
           </Table>
         </PageContent>
       </div>
-    )
+    );
   }
 }
 
@@ -155,11 +155,11 @@ GroupsContainer.propTypes = {
   groups: PropTypes.object.isRequired,
   fetchGroups: PropTypes.func.isRequired,
   deleteGroup: PropTypes.func.isRequired,
-  showModal: PropTypes.func.isRequired
-}
+  showModal: PropTypes.func.isRequired,
+};
 
-const mapStateToProps = state => ({
-  groups: state.groupsState.groups
-})
+const mapStateToProps = (state) => ({
+  groups: state.groupsState.groups,
+});
 
-export default connect(mapStateToProps, { fetchGroups, deleteGroup, showModal })(GroupsContainer)
+export default connect(mapStateToProps, { fetchGroups, deleteGroup, showModal })(GroupsContainer);

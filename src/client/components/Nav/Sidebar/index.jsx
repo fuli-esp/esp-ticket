@@ -12,57 +12,57 @@
  *  Copyright (c) 2014-2019. All rights reserved.
  */
 
-import React from 'react'
-import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
-import SidebarItem from 'components/Nav/SidebarItem'
-import NavSeparator from 'components/Nav/NavSeperator'
-import Submenu from 'components/Nav/Submenu'
-import SubmenuItem from 'components/Nav/SubmenuItem'
+import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import SidebarItem from 'components/Nav/SidebarItem';
+import NavSeparator from 'components/Nav/NavSeperator';
+import Submenu from 'components/Nav/Submenu';
+import SubmenuItem from 'components/Nav/SubmenuItem';
 
-import { updateNavChange } from 'actions/nav'
+import { updateNavChange } from 'actions/nav';
 
-import Helpers from 'lib/helpers'
+import Helpers from 'lib/helpers';
 
 class Sidebar extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     // Helpers.UI.getPlugins((err, result) => {
     //   if (!err && result.plugins) {
     //     this.setState({ plugins: result.plugins })
     //   }
     // })
-    const sidebarRoute = document.getElementById('__sidebar_route').innerText
-    const sidebarSubRoute = document.getElementById('__sidebar_sub_route').innerText
+    const sidebarRoute = document.getElementById('__sidebar_route').innerText;
+    const sidebarSubRoute = document.getElementById('__sidebar_sub_route').innerText;
 
-    this.props.updateNavChange({ activeItem: sidebarRoute, activeSubItem: sidebarSubRoute })
+    this.props.updateNavChange({ activeItem: sidebarRoute, activeSubItem: sidebarSubRoute });
   }
 
-  componentDidUpdate () {
-    Helpers.UI.initSidebar()
-    Helpers.UI.bindExpand()
+  componentDidUpdate() {
+    Helpers.UI.initSidebar();
+    Helpers.UI.bindExpand();
   }
 
-  renderPlugins () {
-    const { plugins, sessionUser, activeItem, activeSubItem } = this.state
+  renderPlugins() {
+    const { plugins, sessionUser, activeItem, activeSubItem } = this.state;
     return (
       <SidebarItem
-        text='插件'
-        icon='extension'
-        href='/plugins'
-        class='navPlugins tether-plugins'
+        text="插件"
+        icon="extension"
+        href="/plugins"
+        class="navPlugins tether-plugins"
         hasSubmenu={plugins && plugins.length > 0}
-        subMenuTarget='plugins'
+        subMenuTarget="plugins"
         active={activeItem === 'plugins'}
       >
         {plugins && plugins.length > 0 && (
-          <Submenu id='plugins' subMenuOpen={activeItem === 'plugins'}>
+          <Submenu id="plugins" subMenuOpen={activeItem === 'plugins'}>
             {plugins.map(function (item) {
-              const perms = item.permissions.split(' ')
-              if (perms.indexOf(sessionUser.role) === -1) return
+              const perms = item.permissions.split(' ');
+              if (perms.indexOf(sessionUser.role) === -1) return;
               return (
                 <SubmenuItem
                   key={item.name}
@@ -71,85 +71,85 @@ class Sidebar extends React.Component {
                   href={item.menu.main.link}
                   active={activeSubItem === item.name}
                 />
-              )
+              );
             })}
           </Submenu>
         )}
       </SidebarItem>
-    )
+    );
   }
 
-  render () {
-    const { activeItem, activeSubItem, sessionUser } = this.props
+  render() {
+    const { activeItem, activeSubItem, sessionUser } = this.props;
 
     return (
       <div
         className={'sidebar nopadding'}
         style={{ overflowX: 'hidden', top: this.props.notice ? '95px' : '65px' }}
-        data-scroll-opacitymax='0.1'
+        data-scroll-opacitymax="0.1"
       >
         <div id={'side-nav-container'} style={{ minHeight: 'calc(100% - 50px)' }}>
-          <ul className='side-nav'>
+          <ul className="side-nav">
             {sessionUser && Helpers.canUser('agent:*', true) && (
               <SidebarItem
-                text='仪表盘'
-                icon='dashboard'
-                href='/dashboard'
-                class='navHome'
+                text="数据报表"
+                icon="dashboard"
+                href="/dashboard"
+                class="navHome"
                 active={activeItem === 'dashboard'}
               />
             )}
             {sessionUser && Helpers.canUser('tickets:view') && (
               <SidebarItem
-                text='工单'
-                icon='assignment'
-                href='/tickets'
-                class='navTickets no-ajaxy'
+                text="工单"
+                icon="assignment"
+                href="/tickets"
+                class="navTickets no-ajaxy"
                 hasSubmenu={true}
-                subMenuTarget='tickets'
+                subMenuTarget="tickets"
                 active={activeItem === 'tickets'}
               >
-                <Submenu id='tickets'>
+                <Submenu id="tickets">
                   <SubmenuItem
-                    text='活跃'
-                    icon='timer'
-                    href='/tickets/active'
+                    text="活跃"
+                    icon="timer"
+                    href="/tickets/active"
                     active={activeSubItem === 'tickets-active'}
                   />
                   <SubmenuItem
-                    text='已分配'
-                    icon='assignment_ind'
-                    href='/tickets/assigned'
+                    text="已分配"
+                    icon="assignment_ind"
+                    href="/tickets/assigned"
                     active={activeSubItem === 'tickets-assigned'}
                   />
                   <SubmenuItem
-                    text='未分配'
-                    icon='person_add_disabled'
-                    href='/tickets/unassigned'
+                    text="未分配"
+                    icon="person_add_disabled"
+                    href="/tickets/unassigned"
                     active={activeSubItem === 'tickets-unassigned'}
                   />
                 </Submenu>
               </SidebarItem>
             )}
             <SidebarItem
-              text='消息'
-              icon='chat'
-              href='/messages'
-              class='navMessages'
+              text="消息"
+              icon="chat"
+              href="/messages"
+              class="navMessages"
               active={activeItem === 'messages'}
             />
             {sessionUser && Helpers.canUser('accounts:view') && (
               <SidebarItem
-                text='账号'
-                icon='&#xE7FD;'
-                href='/accounts'
-                class='navAccounts'
+                text="账号"
+                icon="&#xE7FD;"
+                href="/accounts"
+                class="navAccounts"
                 active={activeItem === 'accounts'}
-                subMenuTarget='accounts'
+                subMenuTarget="accounts"
                 hasSubmenu={sessionUser && Helpers.canUser('agent:*', true)}
               >
                 {sessionUser && Helpers.canUser('agent:*', true) && (
-                  <Submenu id='accounts'>
+                  <Submenu id="accounts">
                     <SubmenuItem
                       href={'/accounts/customers'}
                       text={'代理店'}
@@ -178,40 +178,40 @@ class Sidebar extends React.Component {
             )}
             {sessionUser && Helpers.canUser('groups:view') && (
               <SidebarItem
-                text='代理店组'
-                icon='supervisor_account'
-                href='/groups'
-                class='navGroups'
+                text="代理店组"
+                icon="supervisor_account"
+                href="/groups"
+                class="navGroups"
                 active={activeItem === 'groups'}
               />
             )}
             {sessionUser && Helpers.canUser('teams:view') && (
-              <SidebarItem text='团队' icon='wc' href='/teams' class='navTeams' active={activeItem === 'teams'} />
+              <SidebarItem text="团队" icon="wc" href="/teams" class="navTeams" active={activeItem === 'teams'} />
             )}
             {sessionUser && Helpers.canUser('departments:view') && (
               <SidebarItem
-                text='部门'
-                icon='domain'
-                href='/departments'
-                class='navTeams'
+                text="部门"
+                icon="domain"
+                href="/departments"
+                class="navTeams"
                 active={activeItem === 'departments'}
               />
             )}
             {sessionUser && Helpers.canUser('reports:view') && (
               <SidebarItem
-                text='报告'
-                icon='assessment'
-                href='/reports/generate'
-                class='navReports no-ajaxy'
+                text="报告"
+                icon="assessment"
+                href="/reports/generate"
+                class="navReports no-ajaxy"
                 hasSubmenu={true}
-                subMenuTarget='reports'
+                subMenuTarget="reports"
                 active={activeItem === 'reports'}
               >
-                <Submenu id='reports'>
+                <Submenu id="reports">
                   <SubmenuItem
-                    text='生成报告'
-                    icon='timeline'
-                    href='/reports/generate'
+                    text="生成报告"
+                    icon="timeline"
+                    href="/reports/generate"
                     active={activeSubItem === 'reports-generate'}
                   />
                   {/*<NavSeparator />*/}
@@ -235,59 +235,54 @@ class Sidebar extends React.Component {
 
             {sessionUser && Helpers.canUser('notices:view') && (
               <SidebarItem
-                text='通知'
-                icon='campaign'
-                href='/notices'
-                class='navNotices'
+                text="通知"
+                icon="campaign"
+                href="/notices"
+                class="navNotices"
                 active={activeItem === 'notices'}
               />
             )}
 
             {sessionUser && Helpers.canUser('settings:edit') && (
               <SidebarItem
-                text='设置'
-                icon='settings'
-                href='/settings/general'
-                class='navSettings no-ajaxy'
+                text="设置"
+                icon="settings"
+                href="/settings/general"
+                class="navSettings no-ajaxy"
                 hasSubmenu={true}
-                subMenuTarget='settings'
+                subMenuTarget="settings"
                 active={activeItem === 'settings'}
               >
-                <Submenu id='settings'>
+                <Submenu id="settings">
+                  <SubmenuItem text="通用" icon="tune" href="/settings" active={activeSubItem === 'settings-general'} />
                   <SubmenuItem
-                    text='通用'
-                    icon='tune'
-                    href='/settings'
-                    active={activeSubItem === 'settings-general'}
-                  />
-                  <SubmenuItem
-                    text='账号'
-                    icon='tune'
-                    href='/settings/accounts'
+                    text="账号"
+                    icon="tune"
+                    href="/settings/accounts"
                     active={activeSubItem === 'settings-accounts'}
                   />
                   <SubmenuItem
-                    text='外观'
-                    icon='style'
-                    href='/settings/appearance'
+                    text="外观"
+                    icon="style"
+                    href="/settings/appearance"
                     active={activeSubItem === 'settings-appearance'}
                   />
                   <SubmenuItem
-                    text='工单'
-                    icon='assignment'
-                    href='/settings/tickets'
+                    text="工单"
+                    icon="assignment"
+                    href="/settings/tickets"
                     active={activeSubItem === 'settings-tickets'}
                   />
                   <SubmenuItem
-                    text='权限'
-                    icon='security'
-                    href='/settings/permissions'
+                    text="权限"
+                    icon="security"
+                    href="/settings/permissions"
                     active={activeSubItem === 'settings-permissions'}
                   />
                   <SubmenuItem
-                    text='邮件'
-                    icon='email'
-                    href='/settings/mailer'
+                    text="邮件"
+                    icon="email"
+                    href="/settings/mailer"
                     active={activeSubItem === 'settings-mailer'}
                   />
                   <SubmenuItem
@@ -297,28 +292,28 @@ class Sidebar extends React.Component {
                     active={activeSubItem === 'settings-elasticsearch'}
                   />
                   <SubmenuItem
-                    text='备份/恢复'
-                    icon='archive'
-                    href='/settings/backup'
+                    text="备份/恢复"
+                    icon="archive"
+                    href="/settings/backup"
                     active={activeSubItem === 'settings-backup'}
                   />
                   <SubmenuItem
-                    text='服务器'
-                    icon='dns'
-                    href='/settings/server'
+                    text="服务器"
+                    icon="dns"
+                    href="/settings/server"
                     active={activeSubItem === 'settings-server'}
                   />
                   <SubmenuItem
-                    text='法律'
-                    icon='gavel'
-                    href='/settings/legal'
+                    text="法律"
+                    icon="gavel"
+                    href="/settings/legal"
                     active={activeSubItem === 'settings-legal'}
                   />
                   {sessionUser && Helpers.canUser('settings:logs') && (
                     <SubmenuItem
-                      text='日志'
-                      icon='remove_from_queue'
-                      href='/settings/logs'
+                      text="日志"
+                      icon="remove_from_queue"
+                      href="/settings/logs"
                       hasSeperator={true}
                       active={activeSubItem === 'settings-logs'}
                     />
@@ -331,13 +326,13 @@ class Sidebar extends React.Component {
             {/*<SidebarItem href={'https://www.trudesk.io'} icon={'cloud'} text={'Cloud'} target={'_blank'} />*/}
           </ul>
         </div>
-        <div className='side-nav-bottom-panel'>
-          <a id='expand-menu' className='no-ajaxy' href='#'>
-            <i className='material-icons'>menu</i>收起菜单
+        <div className="side-nav-bottom-panel">
+          <a id="expand-menu" className="no-ajaxy" href="#">
+            <i className="material-icons">menu</i>收起菜单
           </a>
         </div>
       </div>
-    )
+    );
   }
 }
 
@@ -347,14 +342,14 @@ Sidebar.propTypes = {
   activeSubItem: PropTypes.string.isRequired,
   sessionUser: PropTypes.object,
   plugins: PropTypes.array,
-  notice: PropTypes.object
-}
+  notice: PropTypes.object,
+};
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   activeItem: state.sidebar.activeItem,
   activeSubItem: state.sidebar.activeSubItem,
   sessionUser: state.shared.sessionUser,
-  notice: state.shared.notice
-})
+  notice: state.shared.notice,
+});
 
-export default connect(mapStateToProps, { updateNavChange })(Sidebar)
+export default connect(mapStateToProps, { updateNavChange })(Sidebar);
