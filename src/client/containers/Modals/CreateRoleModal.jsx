@@ -12,57 +12,57 @@
  *  Copyright (c) 2014-2019. All rights reserved.
  */
 
-import React from 'react'
-import PropTypes from 'prop-types'
-import { observer } from 'mobx-react'
-import { makeObservable, observable } from 'mobx'
-import { connect } from 'react-redux'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { observer } from 'mobx-react';
+import { makeObservable, observable } from 'mobx';
+import { connect } from 'react-redux';
 
-import { createRole } from 'actions/settings'
+import { createRole } from 'actions/settings';
 
-import Button from 'components/Button'
-import BaseModal from './BaseModal'
+import Button from 'components/Button';
+import BaseModal from './BaseModal';
 
 @observer
 class CreateRoleModal extends React.Component {
-  @observable name = ''
+  @observable name = '';
 
-  constructor (props) {
-    super(props)
-    makeObservable(this)
+  constructor(props) {
+    super(props);
+    makeObservable(this);
   }
 
-  onNameChange (e) {
-    this.name = e.target.value
+  onNameChange(e) {
+    this.name = e.target.value;
   }
 
-  onCreateRoleClicked (e) {
-    e.preventDefault()
+  onCreateRoleClicked(e) {
+    e.preventDefault();
 
-    this.props.createRole({ name: this.name })
+    this.props.createRole({ name: this.name });
   }
 
-  render () {
+  render() {
     return (
       <BaseModal>
         <div className={'uk-form-stacked'}>
           <div>
-            <h2 className={'nomargin mb-5'}>Create Role</h2>
-            <p className='uk-text-muted'>Once created, the role will become editable in the permission editor</p>
+            <h2 className={'nomargin mb-5'}>创建角色</h2>
+            <p className="uk-text-muted">Once created, the role will become editable in the permission editor</p>
 
-            <label>Role Name</label>
+            <label>角色名</label>
             <input
-              type='text'
+              type="text"
               className={'md-input'}
               name={'name'}
-              data-validation='length'
-              data-validation-length='min3'
-              data-validation-error-msg='Please enter a valid role name. Role name must contain at least 3 characters.'
+              data-validation="length"
+              data-validation-length="min3"
+              data-validation-error-msg="Please enter a valid role name. Role name must contain at least 3 characters."
               value={this.name}
-              onChange={e => this.onNameChange(e)}
+              onChange={(e) => this.onNameChange(e)}
             />
           </div>
-          <div className='uk-modal-footer uk-text-right'>
+          <div className="uk-modal-footer uk-text-right">
             <Button text={'关闭'} extraClass={'uk-modal-close'} flat={true} waves={true} />
             <Button
               text={'创建'}
@@ -70,17 +70,17 @@ class CreateRoleModal extends React.Component {
               flat={true}
               waves={true}
               style={'success'}
-              onClick={e => this.onCreateRoleClicked(e)}
+              onClick={(e) => this.onCreateRoleClicked(e)}
             />
           </div>
         </div>
       </BaseModal>
-    )
+    );
   }
 }
 
 CreateRoleModal.propTypes = {
-  createRole: PropTypes.func.isRequired
-}
+  createRole: PropTypes.func.isRequired,
+};
 
-export default connect(null, { createRole })(CreateRoleModal)
+export default connect(null, { createRole })(CreateRoleModal);

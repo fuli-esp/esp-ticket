@@ -103,11 +103,11 @@ class EditDepartmentModal extends React.Component {
     return (
       <BaseModal {...this.props} options={{ bgclose: false }}>
         <div className={'mb-25'}>
-          <h2>Edit Department: {department.get('name')}</h2>
+          <h2>编辑部门: {department.get('name')}</h2>
         </div>
         <form className={'uk-form-stacked'} onSubmit={(e) => this.onFormSubmit(e)}>
           <div className={'uk-margin-medium-bottom'}>
-            <label>Department Name</label>
+            <label>部门名称</label>
             <input
               type="text"
               className={'md-input'}
@@ -119,7 +119,7 @@ class EditDepartmentModal extends React.Component {
             />
           </div>
           <div className={'uk-margin-medium-bottom'}>
-            <label style={{ marginBottom: 5 }}>Teams</label>
+            <label style={{ marginBottom: 5 }}>团队</label>
             <MultiSelect
               items={mappedTeams}
               initialSelected={departmentTeams ? departmentTeams.map((d) => d.get('_id')).toArray() : []}
