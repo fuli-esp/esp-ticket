@@ -11,198 +11,202 @@
  *  Copyright (c) 2014-2019 Trudesk, Inc. All rights reserved.
  */
 
-import React from 'react'
-import PropTypes from 'prop-types'
-import { each } from 'lodash'
-import { connect } from 'react-redux'
-import { hideModal } from 'actions/common'
-import { fetchGroups, unloadGroups } from 'actions/groups'
-import { fetchAccounts, unloadAccounts } from 'actions/accounts'
-import { getTagsWithPage, fetchTicketTypes, fetchTicketStatus } from 'actions/tickets'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { each } from 'lodash';
+import { connect } from 'react-redux';
+import { hideModal } from 'actions/common';
+import { fetchGroups, unloadGroups } from 'actions/groups';
+import { fetchAccounts, unloadAccounts } from 'actions/accounts';
+import { getTagsWithPage, fetchTicketTypes, fetchTicketStatus } from 'actions/tickets';
 
-import BaseModal from 'containers/Modals/BaseModal'
-import SingleSelect from 'components/SingleSelect'
-import Button from 'components/Button'
+import BaseModal from 'containers/Modals/BaseModal';
+import SingleSelect from 'components/SingleSelect';
+import Button from 'components/Button';
 
-import helpers from 'lib/helpers'
+import helpers from 'lib/helpers';
 
 class FilterTicketsModal extends React.Component {
-  constructor (props) {
-    super(props)
+  constructor(props) {
+    super(props);
   }
 
-  componentDidMount () {
-    helpers.UI.inputs()
-    this.props.fetchGroups()
-    this.props.fetchAccounts({ page: 0, limit: -1, type: 'agents', showDeleted: false })
-    this.props.getTagsWithPage({ limit: -1 })
-    this.props.fetchTicketTypes()
-    this.props.fetchTicketStatus()
+  componentDidMount() {
+    helpers.UI.inputs();
+    this.props.fetchGroups();
+    this.props.fetchAccounts({ page: 0, limit: -1, type: 'agents', showDeleted: false });
+    this.props.getTagsWithPage({ limit: -1 });
+    this.props.fetchTicketTypes();
+    this.props.fetchTicketStatus();
   }
 
-  componentDidUpdate () {
-    helpers.UI.reRenderInputs()
+  componentDidUpdate() {
+    helpers.UI.reRenderInputs();
   }
 
-  componentWillUnmount () {
-    this.props.unloadGroups()
-    this.props.unloadAccounts()
+  componentWillUnmount() {
+    this.props.unloadGroups();
+    this.props.unloadAccounts();
   }
 
-  onSubmit (e) {
-    e.preventDefault()
-    const startDate = e.target.filterDate_Start.value
-    const endDate = e.target.filterDate_End.value
-    const subject = e.target.subject.value
-    const statuses = this.statusSelect.value
-    const tags = this.tagsSelect.value
-    const types = this.typesSelect.value
-    const groups = this.groupSelect.value
-    const assignees = this.assigneeSelect.value
+  onSubmit(e) {
+    e.preventDefault();
+    const startDate = e.target.filterDate_Start.value;
+    const endDate = e.target.filterDate_End.value;
+    const subject = e.target.subject.value;
+    const statuses = this.statusSelect.value;
+    const tags = this.tagsSelect.value;
+    const types = this.typesSelect.value;
+    const groups = this.groupSelect.value;
+    const assignees = this.assigneeSelect.value;
 
-    let queryString = '?f=1'
-    if (startDate) queryString += `&ds=${startDate}`
-    if (endDate) queryString += `&de=${endDate}`
+    let queryString = '?f=1';
+    if (startDate) queryString += `&ds=${startDate}`;
+    if (endDate) queryString += `&de=${endDate}`;
 
-    if (subject) queryString += `&fs=${subject}`
+    if (subject) queryString += `&fs=${subject}`;
 
-    each(statuses, i => {
-      queryString += `&st=${i}`
-    })
+    each(statuses, (i) => {
+      queryString += `&st=${i}`;
+    });
 
-    each(types, i => {
-      queryString += `&tt=${i}`
-    })
+    each(types, (i) => {
+      queryString += `&tt=${i}`;
+    });
 
-    each(tags, i => {
-      queryString += `&tag=${i}`
-    })
+    each(tags, (i) => {
+      queryString += `&tag=${i}`;
+    });
 
-    each(groups, i => {
-      queryString += `&gp=${i}`
-    })
+    each(groups, (i) => {
+      queryString += `&gp=${i}`;
+    });
 
-    each(assignees, i => {
-      queryString += `&au=${i}`
-    })
+    each(assignees, (i) => {
+      queryString += `&au=${i}`;
+    });
 
-    History.pushState(null, null, `/tickets/filter/${queryString}&r=${Math.floor(Math.random() * (99999 - 1 + 1)) + 1}`)
-    this.props.hideModal()
+    History.pushState(
+      null,
+      null,
+      `/tickets/filter/${queryString}&r=${Math.floor(Math.random() * (99999 - 1 + 1)) + 1}`
+    );
+    this.props.hideModal();
   }
 
-  render () {
-    const statuses = this.props.ticketStatuses.map(s => ({ text: s.get('name'), value: s.get('_id') })).toArray()
+  render() {
+    const statuses = this.props.ticketStatuses.map((s) => ({ text: s.get('name'), value: s.get('_id') })).toArray();
 
     const tags = this.props.ticketTags
-      .map(t => {
-        return { text: t.get('name'), value: t.get('_id') }
+      .map((t) => {
+        return { text: t.get('name'), value: t.get('_id') };
       })
-      .toArray()
+      .toArray();
 
     const types = this.props.ticketTypes
-      .map(t => {
-        return { text: t.get('name'), value: t.get('_id') }
+      .map((t) => {
+        return { text: t.get('name'), value: t.get('_id') };
       })
-      .toArray()
+      .toArray();
 
     const groups = this.props.groupsState.groups
-      .map(g => {
-        return { text: g.get('name'), value: g.get('_id') }
+      .map((g) => {
+        return { text: g.get('name'), value: g.get('_id') };
       })
-      .toArray()
+      .toArray();
 
     const assignees = this.props.accountsState.accounts
-      .map(a => {
-        return { text: a.get('fullname'), value: a.get('_id') }
+      .map((a) => {
+        return { text: a.get('fullname'), value: a.get('_id') };
       })
-      .toArray()
+      .toArray();
 
     return (
       <BaseModal options={{ bgclose: false }}>
         <h2 style={{ marginBottom: 20 }}>工单过滤</h2>
-        <form className={'uk-form-stacked'} onSubmit={e => this.onSubmit(e)}>
-          <div className='uk-margin-medium-bottom'>
+        <form className={'uk-form-stacked'} onSubmit={(e) => this.onSubmit(e)}>
+          <div className="uk-margin-medium-bottom">
             <label>主题</label>
-            <input type='text' name={'subject'} className={'md-input'} />
+            <input type="text" name={'subject'} className={'md-input'} />
           </div>
-          <div className='uk-grid uk-grid-collapse uk-margin-small-bottom'>
-            <div className='uk-width-1-2' style={{ padding: '0 15px 0 0' }}>
-              <label htmlFor='filterDate_Start' className='uk-form-label nopadding nomargin'>
+          <div className="uk-grid uk-grid-collapse uk-margin-small-bottom">
+            <div className="uk-width-1-2" style={{ padding: '0 15px 0 0' }}>
+              <label htmlFor="filterDate_Start" className="uk-form-label nopadding nomargin">
                 开始日期
               </label>
               <input
-                id='filterDate_Start'
-                className='md-input'
-                name='filterDate_Start'
-                type='text'
+                id="filterDate_Start"
+                className="md-input"
+                name="filterDate_Start"
+                type="text"
                 data-uk-datepicker={"{format:'" + helpers.getShortDateFormat() + "'}"}
               />
             </div>
-            <div className='uk-width-1-2' style={{ padding: '0 0 0 15px' }}>
-              <label htmlFor='filterDate_End' className='uk-form-label nopadding nomargin'>
+            <div className="uk-width-1-2" style={{ padding: '0 0 0 15px' }}>
+              <label htmlFor="filterDate_End" className="uk-form-label nopadding nomargin">
                 结束日期
               </label>
               <input
-                id='filterDate_End'
-                className='md-input'
-                name='filterDate_End'
-                type='text'
+                id="filterDate_End"
+                className="md-input"
+                name="filterDate_End"
+                type="text"
                 data-uk-datepicker={"{format:'" + helpers.getShortDateFormat() + "'}"}
               />
             </div>
           </div>
-          <div className='uk-grid uk-grid-collapse uk-margin-small-bottom'>
-            <div className='uk-width-1-1'>
-              <label htmlFor='filterStatus' className='uk-form-label' style={{ paddingBottom: 0, marginBottom: 0 }}>
+          <div className="uk-grid uk-grid-collapse uk-margin-small-bottom">
+            <div className="uk-width-1-1">
+              <label htmlFor="filterStatus" className="uk-form-label" style={{ paddingBottom: 0, marginBottom: 0 }}>
                 状态
               </label>
-              <SingleSelect items={statuses} showTextbox={false} multiple={true} ref={r => (this.statusSelect = r)} />
+              <SingleSelect items={statuses} showTextbox={false} multiple={true} ref={(r) => (this.statusSelect = r)} />
             </div>
           </div>
-          <div className='uk-grid uk-grid-collapse uk-margin-small-bottom'>
-            <div className='uk-width-1-1'>
-              <label htmlFor='filterStatus' className='uk-form-label' style={{ paddingBottom: 0, marginBottom: 0 }}>
+          <div className="uk-grid uk-grid-collapse uk-margin-small-bottom">
+            <div className="uk-width-1-1">
+              <label htmlFor="filterStatus" className="uk-form-label" style={{ paddingBottom: 0, marginBottom: 0 }}>
                 工单标签
               </label>
-              <SingleSelect items={tags} showTextbox={true} multiple={true} ref={r => (this.tagsSelect = r)} />
+              <SingleSelect items={tags} showTextbox={true} multiple={true} ref={(r) => (this.tagsSelect = r)} />
             </div>
           </div>
-          <div className='uk-grid uk-grid-collapse uk-margin-small-bottom'>
-            <div className='uk-width-1-1'>
-              <label htmlFor='filterStatus' className='uk-form-label' style={{ paddingBottom: 0, marginBottom: 0 }}>
+          <div className="uk-grid uk-grid-collapse uk-margin-small-bottom">
+            <div className="uk-width-1-1">
+              <label htmlFor="filterStatus" className="uk-form-label" style={{ paddingBottom: 0, marginBottom: 0 }}>
                 工单类型
               </label>
-              <SingleSelect items={types} showTextbox={false} multiple={true} ref={r => (this.typesSelect = r)} />
+              <SingleSelect items={types} showTextbox={false} multiple={true} ref={(r) => (this.typesSelect = r)} />
             </div>
           </div>
-          <div className='uk-grid uk-grid-collapse uk-margin-small-bottom'>
-            <div className='uk-width-1-1'>
-              <label htmlFor='filterStatus' className='uk-form-label' style={{ paddingBottom: 0, marginBottom: 0 }}>
+          <div className="uk-grid uk-grid-collapse uk-margin-small-bottom">
+            <div className="uk-width-1-1">
+              <label htmlFor="filterStatus" className="uk-form-label" style={{ paddingBottom: 0, marginBottom: 0 }}>
                 负责人
               </label>
               <SingleSelect
                 items={assignees}
                 showTextbox={false}
                 multiple={true}
-                ref={r => (this.assigneeSelect = r)}
+                ref={(r) => (this.assigneeSelect = r)}
               />
             </div>
           </div>
-          <div className='uk-grid uk-grid-collapse uk-margin-small-bottom'>
-            <div className='uk-width-1-1'>
-              <label htmlFor='filterStatus' className='uk-form-label' style={{ paddingBottom: 0, marginBottom: 0 }}>
+          <div className="uk-grid uk-grid-collapse uk-margin-small-bottom">
+            <div className="uk-width-1-1">
+              <label htmlFor="filterStatus" className="uk-form-label" style={{ paddingBottom: 0, marginBottom: 0 }}>
                 代理店
               </label>
-              <SingleSelect items={groups} showTextbox={false} multiple={true} ref={r => (this.groupSelect = r)} />
+              <SingleSelect items={groups} showTextbox={false} multiple={true} ref={(r) => (this.groupSelect = r)} />
             </div>
           </div>
-          <div className='uk-modal-footer uk-text-right'>
+          <div className="uk-modal-footer uk-text-right">
             <Button text={'取消'} flat={true} waves={true} extraClass={'uk-modal-close'} />
             <Button text={'应用过滤条件'} style={'primary'} flat={false} type={'submit'} />
           </div>
         </form>
       </BaseModal>
-    )
+    );
   }
 }
 
@@ -220,17 +224,17 @@ FilterTicketsModal.propTypes = {
   fetchTicketTypes: PropTypes.func.isRequired,
   ticketTypes: PropTypes.object.isRequired,
   fetchTicketStatus: PropTypes.func.isRequired,
-  ticketStatuses: PropTypes.object.isRequired
-}
+  ticketStatuses: PropTypes.object.isRequired,
+};
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   viewdata: state.common.viewdata,
   groupsState: state.groupsState,
   accountsState: state.accountsState,
   ticketTags: state.tagsSettings.tags,
   ticketTypes: state.ticketsState.types,
-  ticketStatuses: state.ticketsState.ticketStatuses
-})
+  ticketStatuses: state.ticketsState.ticketStatuses,
+});
 
 export default connect(mapStateToProps, {
   hideModal,
@@ -240,5 +244,5 @@ export default connect(mapStateToProps, {
   unloadAccounts,
   getTagsWithPage,
   fetchTicketTypes,
-  fetchTicketStatus
-})(FilterTicketsModal)
+  fetchTicketStatus,
+})(FilterTicketsModal);

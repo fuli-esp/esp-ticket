@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
-
+import { compose } from 'redux';
 import {
   fetchDashboardData,
   fetchDashboardTopGroups,
@@ -23,6 +23,7 @@ import PeityPie from 'components/Peity/peity-pie';
 import PeityLine from 'components/Peity/peity-line';
 import MGraph from 'components/MGraph';
 import D3Pie from 'components/D3/d3pie';
+import { withTranslation } from 'react-i18next';
 
 import moment from 'moment-timezone';
 import helpers from 'lib/helpers';
@@ -53,6 +54,9 @@ class DashboardContainer extends React.Component {
   };
 
   render() {
+    const { t } = this.props;
+   
+
     const formatString = helpers.getLongDateFormat() + ' ' + helpers.getTimeFormat();
     const tz = helpers.getTimezone();
     const lastUpdatedFormatted = this.props.dashboardState.lastUpdated
@@ -66,7 +70,7 @@ class DashboardContainer extends React.Component {
     return (
       <div>
         <PageTitle
-          title={'数据报表'}
+          title={'数据报表12'}
           rightComponent={
             <div>
               <div className={'uk-float-right'} style={{ minWidth: 250 }}>
@@ -88,6 +92,7 @@ class DashboardContainer extends React.Component {
                 <strong>最近更新: </strong>
                 <span>{lastUpdatedFormatted}</span>
               </div>
+              <h1>{t('welcome')}</h1>
             </div>
           }
         />
@@ -328,9 +333,12 @@ const mapStateToProps = (state) => ({
   dashboardState: state.dashboardState,
 });
 
-export default connect(mapStateToProps, {
-  fetchDashboardData,
-  fetchDashboardTopGroups,
-  fetchDashboardTopTags,
-  fetchDashboardOverdueTickets,
-})(DashboardContainer);
+export default compose(
+    connect(mapStateToProps, {
+      fetchDashboardData,
+      fetchDashboardTopGroups,
+      fetchDashboardTopTags,
+      fetchDashboardOverdueTickets,
+    }),
+    withTranslation()
+  )(DashboardContainer);

@@ -31,6 +31,8 @@ import SessionLoader from 'lib2/sessionLoader'
 import HotKeysGlobal from 'containers/Global/HotKeysGlobal'
 import BackupRestoreOverlay from 'containers/Global/BackupRestoreOverlay'
 import ChatDock from 'containers/Global/ChatDock'
+import { I18nextProvider } from 'react-i18next';
+import i18n from './i18n';
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -39,7 +41,7 @@ const composeSetup =
   process.env.NODE_ENV !== 'production' && typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose
-/*eslint-enable */
+/* eslint-enable */
 
 // if (process.env.NODE_ENV !== 'production') {
 localStorage.setItem('debug', 'trudesk:*') // Enable logger
@@ -57,15 +59,17 @@ sagaMiddleware.run(IndexSagas)
 if (document.getElementById('globals')) {
   const GlobalsRoot = (
     <Provider store={store}>
+    <I18nextProvider i18n={i18n}>
       <>
         <SingletonHooksContainer />
         <SessionLoader />
         <SocketGlobal />
-        {/*<HotKeysGlobal />*/}
+        <HotKeysGlobal />
 
         <ChatDock />
         <BackupRestoreOverlay />
       </>
+      </I18nextProvider>
     </Provider>
   )
 
@@ -74,7 +78,10 @@ if (document.getElementById('globals')) {
 
 const sidebarWithProvider = (
   <Provider store={store}>
-    <Sidebar />
+    <I18nextProvider i18n={i18n}>
+        <Sidebar />
+    </I18nextProvider>
+
   </Provider>
 )
 
@@ -83,7 +90,11 @@ ReactDOM.render(sidebarWithProvider, document.getElementById('sidebar'))
 if (document.getElementById('modal-wrapper')) {
   const RootModal = (
     <Provider store={store}>
+    <I18nextProvider i18n={i18n}>
+
       <ModalRoot />
+    </I18nextProvider>
+
     </Provider>
   )
   ReactDOM.render(RootModal, document.getElementById('modal-wrapper'))
@@ -92,7 +103,9 @@ if (document.getElementById('modal-wrapper')) {
 if (document.getElementById('topbar')) {
   const TopbarRoot = (
     <Provider store={store}>
+    <I18nextProvider i18n={i18n}>
       <TopbarContainer />
+    </I18nextProvider>
     </Provider>
   )
 

@@ -1,8 +1,8 @@
-const path = require('path')
-const webpack = require('webpack')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
-const CompressionPlugin = require('compression-webpack-plugin')
+const path = require('path');
+const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -16,15 +16,15 @@ module.exports = {
       'dt_grouping',
       'dt_ipaddress',
       'modernizr',
-      'underscore'
+      'underscore',
     ],
     'trudesk.min': path.resolve(__dirname, 'src/public/js/app.js'),
-    truRequire: 'expose-loader?exposes=truRequire!' + path.resolve(__dirname, './src/public/js/truRequire')
+    truRequire: 'expose-loader?exposes=truRequire!' + path.resolve(__dirname, './src/public/js/truRequire'),
   },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, 'public/js'),
-    publicPath: '/js/'
+    publicPath: '/js/',
   },
   resolve: {
     modules: [path.resolve(__dirname, 'src/public/js/'), 'node_modules'],
@@ -86,28 +86,29 @@ module.exports = {
       snackbar: 'plugins/snackbar',
 
       sass: path.resolve(__dirname, 'src/sass'),
+      client: path.resolve(__dirname, 'src/client'),
       components: path.resolve(__dirname, 'src/client/components'),
       containers: path.resolve(__dirname, 'src/client/containers'),
       actions: path.resolve(__dirname, 'src/client/actions'),
       api: path.resolve(__dirname, 'src/client/api'),
       lib: path.resolve(__dirname, 'src/public/js/modules'),
       lib2: path.resolve(__dirname, 'src/client/lib'),
-      serverSocket: path.resolve(__dirname, 'src/socketio')
+      serverSocket: path.resolve(__dirname, 'src/socketio'),
     },
 
-    extensions: ['.js', '.jsx', '.ts', 'tsx']
+    extensions: ['.js', '.jsx', '.ts', 'tsx'],
   },
   externals: {
     // These are bunbled already
     jsdom: 'jsdom',
-    canvas: 'canvas'
+    canvas: 'canvas',
   },
   module: {
     rules: [
       {
         test: /uikit_combined\.min\.js/,
         loader: 'exports-loader',
-        options: { type: 'commonjs', exports: 'single UIkit' }
+        options: { type: 'commonjs', exports: 'single UIkit' },
       },
       {
         test: /\.sass$/,
@@ -116,16 +117,16 @@ module.exports = {
           {
             loader: MiniCssExtractPlugin.loader,
             options: {
-              publicPath: '/public/css'
-            }
+              publicPath: '/public/css',
+            },
           },
           {
             loader: 'css-loader',
-            options: { minimize: true }
+            options: { minimize: true },
           },
           'postcss-loader',
-          'sass-loader'
-        ]
+          'sass-loader',
+        ],
       },
       {
         test: /\.jsx$/,
@@ -136,12 +137,12 @@ module.exports = {
             presets: ['@babel/react', '@babel/env'],
             plugins: [
               ['@babel/plugin-proposal-decorators', { legacy: true }],
-              ['@babel/plugin-proposal-class-properties', { loose: true }]
-            ]
-          }
-        }
-      }
-    ]
+              ['@babel/plugin-proposal-class-properties', { loose: true }],
+            ],
+          },
+        },
+      },
+    ],
   },
   optimization: {
     chunkIds: 'total-size',
@@ -152,10 +153,10 @@ module.exports = {
         terserOptions: {
           format: { comments: false },
           ecma: 6,
-          mangle: false
+          mangle: false,
         },
-        extractComments: false
-      })
+        extractComments: false,
+      }),
     ],
     splitChunks: {
       cacheGroups: {
@@ -163,16 +164,16 @@ module.exports = {
           name: 'vendor',
           test: 'vendor',
           chunks: 'initial',
-          enforce: true
+          enforce: true,
         },
         styles: {
           name: 'styles',
           test: /\.css$/,
           chunks: 'all',
-          enforce: true
-        }
-      }
-    }
+          enforce: true,
+        },
+      },
+    },
   },
   plugins: [
     new webpack.ProvidePlugin({
@@ -187,17 +188,17 @@ module.exports = {
       'window.Modernizr': 'modernizr',
       moment: 'moment',
       'window.moment': 'moment',
-      setImmediate: 'async'
+      setImmediate: 'async',
     }),
     new webpack.IgnorePlugin({ resourceRegExp: /^\.\/locale$/ }),
     new MiniCssExtractPlugin({
-      filename: 'app.min.css'
+      filename: 'app.min.css',
     }),
-    new CompressionPlugin()
+    new CompressionPlugin(),
   ],
   performance: {
     hints: 'warning',
     maxEntrypointSize: 400000,
-    maxAssetSize: 1000000
-  }
-}
+    maxAssetSize: 1000000,
+  },
+};
