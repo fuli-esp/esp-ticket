@@ -19,6 +19,8 @@ import SidebarItem from 'components/Nav/SidebarItem';
 import NavSeparator from 'components/Nav/NavSeperator';
 import Submenu from 'components/Nav/Submenu';
 import SubmenuItem from 'components/Nav/SubmenuItem';
+import { compose } from 'redux';
+import { withTranslation } from 'react-i18next';
 
 import { updateNavChange } from 'actions/nav';
 
@@ -80,6 +82,8 @@ class Sidebar extends React.Component {
   }
 
   render() {
+    const { t } = this.props;
+
     const { activeItem, activeSubItem, sessionUser } = this.props;
 
     return (
@@ -92,7 +96,7 @@ class Sidebar extends React.Component {
           <ul className="side-nav">
             {sessionUser && Helpers.canUser('agent:*', true) && (
               <SidebarItem
-                text="数据报表"
+                text={t('dashboard')}
                 icon="dashboard"
                 href="/dashboard"
                 class="navHome"
@@ -101,7 +105,7 @@ class Sidebar extends React.Component {
             )}
             {sessionUser && Helpers.canUser('tickets:view') && (
               <SidebarItem
-                text="工单"
+                text={t('tickets')}
                 icon="assignment"
                 href="/tickets"
                 class="navTickets no-ajaxy"
@@ -111,19 +115,19 @@ class Sidebar extends React.Component {
               >
                 <Submenu id="tickets">
                   <SubmenuItem
-                    text="活跃"
+                    text={t('active')}
                     icon="timer"
                     href="/tickets/active"
                     active={activeSubItem === 'tickets-active'}
                   />
                   <SubmenuItem
-                    text="已分配"
+                    text={t('assigned')}
                     icon="assignment_ind"
                     href="/tickets/assigned"
                     active={activeSubItem === 'tickets-assigned'}
                   />
                   <SubmenuItem
-                    text="未分配"
+                    text={t('unassigned')}
                     icon="person_add_disabled"
                     href="/tickets/unassigned"
                     active={activeSubItem === 'tickets-unassigned'}
@@ -132,7 +136,7 @@ class Sidebar extends React.Component {
               </SidebarItem>
             )}
             <SidebarItem
-              text="消息"
+              text={t('messages')}
               icon="chat"
               href="/messages"
               class="navMessages"
@@ -140,7 +144,7 @@ class Sidebar extends React.Component {
             />
             {sessionUser && Helpers.canUser('accounts:view') && (
               <SidebarItem
-                text="账号"
+                text={t('accounts')}
                 icon="&#xE7FD;"
                 href="/accounts"
                 class="navAccounts"
@@ -152,14 +156,14 @@ class Sidebar extends React.Component {
                   <Submenu id="accounts">
                     <SubmenuItem
                       href={'/accounts/customers'}
-                      text={'代理店'}
+                      text={t('customers')}
                       icon={'account_box'}
                       active={activeSubItem === 'accounts-customers'}
                     />
                     {sessionUser && Helpers.canUser('agent:*', true) && (
                       <SubmenuItem
                         href={'/accounts/agents'}
-                        text={'内部用户'}
+                        text={t('internal_users')}
                         icon={'account_circle'}
                         active={activeSubItem === 'accounts-agents'}
                       />
@@ -167,7 +171,7 @@ class Sidebar extends React.Component {
                     {sessionUser && Helpers.canUser('admin:*') && (
                       <SubmenuItem
                         href={'/accounts/admins'}
-                        text={'管理员'}
+                        text={t('admins')}
                         icon={'how_to_reg'}
                         active={activeSubItem === 'accounts-admins'}
                       />
@@ -178,7 +182,7 @@ class Sidebar extends React.Component {
             )}
             {sessionUser && Helpers.canUser('groups:view') && (
               <SidebarItem
-                text="代理店组"
+                text={t('groups')}
                 icon="supervisor_account"
                 href="/groups"
                 class="navGroups"
@@ -186,11 +190,11 @@ class Sidebar extends React.Component {
               />
             )}
             {sessionUser && Helpers.canUser('teams:view') && (
-              <SidebarItem text="团队" icon="wc" href="/teams" class="navTeams" active={activeItem === 'teams'} />
+              <SidebarItem text={t('teams')} icon="wc" href="/teams" class="navTeams" active={activeItem === 'teams'} />
             )}
             {sessionUser && Helpers.canUser('departments:view') && (
               <SidebarItem
-                text="部门"
+                text={t('departments')}
                 icon="domain"
                 href="/departments"
                 class="navTeams"
@@ -199,7 +203,7 @@ class Sidebar extends React.Component {
             )}
             {sessionUser && Helpers.canUser('reports:view') && (
               <SidebarItem
-                text="报告"
+                text={t('reports')}
                 icon="assessment"
                 href="/reports/generate"
                 class="navReports no-ajaxy"
@@ -209,7 +213,7 @@ class Sidebar extends React.Component {
               >
                 <Submenu id="reports">
                   <SubmenuItem
-                    text="生成报告"
+                    text={t('generate_reports')}
                     icon="timeline"
                     href="/reports/generate"
                     active={activeSubItem === 'reports-generate'}
@@ -235,7 +239,7 @@ class Sidebar extends React.Component {
 
             {sessionUser && Helpers.canUser('notices:view') && (
               <SidebarItem
-                text="通知"
+                text={t('notices')}
                 icon="campaign"
                 href="/notices"
                 class="navNotices"
@@ -245,7 +249,7 @@ class Sidebar extends React.Component {
 
             {sessionUser && Helpers.canUser('settings:edit') && (
               <SidebarItem
-                text="设置"
+                text={t('settings')}
                 icon="settings"
                 href="/settings/general"
                 class="navSettings no-ajaxy"
@@ -254,33 +258,38 @@ class Sidebar extends React.Component {
                 active={activeItem === 'settings'}
               >
                 <Submenu id="settings">
-                  <SubmenuItem text="通用" icon="tune" href="/settings" active={activeSubItem === 'settings-general'} />
                   <SubmenuItem
-                    text="账号"
+                    text={t('general')}
+                    icon="tune"
+                    href="/settings"
+                    active={activeSubItem === 'settings-general'}
+                  />
+                  <SubmenuItem
+                    text={t('accounts')}
                     icon="tune"
                     href="/settings/accounts"
                     active={activeSubItem === 'settings-accounts'}
                   />
                   <SubmenuItem
-                    text="外观"
+                    text={t('appearance')}
                     icon="style"
                     href="/settings/appearance"
                     active={activeSubItem === 'settings-appearance'}
                   />
                   <SubmenuItem
-                    text="工单"
+                    text={t('tickets')}
                     icon="assignment"
                     href="/settings/tickets"
                     active={activeSubItem === 'settings-tickets'}
                   />
                   <SubmenuItem
-                    text="权限"
+                    text={t('permissions')}
                     icon="security"
                     href="/settings/permissions"
                     active={activeSubItem === 'settings-permissions'}
                   />
                   <SubmenuItem
-                    text="邮件"
+                    text={t('mailer')}
                     icon="email"
                     href="/settings/mailer"
                     active={activeSubItem === 'settings-mailer'}
@@ -292,26 +301,26 @@ class Sidebar extends React.Component {
                     active={activeSubItem === 'settings-elasticsearch'}
                   />
                   <SubmenuItem
-                    text="备份/恢复"
+                    text={t('backup_restore')}
                     icon="archive"
                     href="/settings/backup"
                     active={activeSubItem === 'settings-backup'}
                   />
                   <SubmenuItem
-                    text="服务器"
+                    text={t('server')}
                     icon="dns"
                     href="/settings/server"
                     active={activeSubItem === 'settings-server'}
                   />
                   <SubmenuItem
-                    text="法律"
+                    text={t('legal')}
                     icon="gavel"
                     href="/settings/legal"
                     active={activeSubItem === 'settings-legal'}
                   />
                   {sessionUser && Helpers.canUser('settings:logs') && (
                     <SubmenuItem
-                      text="日志"
+                      text={t('logs')}
                       icon="remove_from_queue"
                       href="/settings/logs"
                       hasSeperator={true}
@@ -322,13 +331,14 @@ class Sidebar extends React.Component {
               </SidebarItem>
             )}
             <NavSeparator />
-            {/* <SidebarItem href='/about' icon='help' text='关于' active={activeItem === 'about'} /> */}
+            {/* <SidebarItem href='/about' icon='help' text={t('about')} active={activeItem === 'about'} /> */}
             {/*<SidebarItem href={'https://www.trudesk.io'} icon={'cloud'} text={'Cloud'} target={'_blank'} />*/}
           </ul>
         </div>
         <div className="side-nav-bottom-panel">
           <a id="expand-menu" className="no-ajaxy" href="#">
-            <i className="material-icons">menu</i>收起菜单
+            <i className="material-icons">menu</i>
+            {t('collapse_menu')}
           </a>
         </div>
       </div>
@@ -352,4 +362,4 @@ const mapStateToProps = (state) => ({
   notice: state.shared.notice,
 });
 
-export default connect(mapStateToProps, { updateNavChange })(Sidebar);
+export default compose(withTranslation(), connect(mapStateToProps, { updateNavChange }))(Sidebar);

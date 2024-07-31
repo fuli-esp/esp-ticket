@@ -49,7 +49,8 @@ import helpers from 'lib/helpers';
 import anime from 'animejs';
 import moment from 'moment-timezone';
 import SearchResults from 'components/SearchResults';
-
+import { compose } from 'redux';
+import { withTranslation } from 'react-i18next';
 @observer
 class TicketsContainer extends React.Component {
   @observable searchTerm = '';
@@ -229,6 +230,8 @@ class TicketsContainer extends React.Component {
   }
 
   render() {
+    const { t } = this.props;
+
     const loadingItems = [];
     for (let i = 0; i < 51; i++) {
       const cells = [];
@@ -265,30 +268,30 @@ class TicketsContainer extends React.Component {
     return (
       <div>
         <style>{`
-        .group-filter {
-            cursor: pointer;
-            padding: 20px;
-            display: inline-block;
-            margin: 4px 24px;
-            border-radius: 4px;
-          }
-          .group-filter:hover {
-              background-color: #e9e9e9;
-          }
-    `}</style>
+          .group-filter {
+              cursor: pointer;
+              padding: 20px;
+              display: inline-block;
+              margin: 4px 24px;
+              border-radius: 4px;
+            }
+            .group-filter:hover {
+                background-color: #e9e9e9;
+            }
+          `}</style>
         <PageTitle
-          title={'工单'}
+          title={t('tickets')}
           shadow={false}
           rightComponent={
             <div>
               <div className={'uk-float-right'}>
                 <DropdownTrigger pos={'bottom-right'} offset={5} extraClass={'uk-float-left'}>
                   <div className="uk-float-left">
-                    <div className="group-filter">代理店过滤</div>
+                    <div className="group-filter">{t('group_filter')}</div>
                   </div>
 
                   <Dropdown small={true} width={120}>
-                    <DropdownItem key={'all'} text={'全部'} onClick={() => this.onGroupsChanged(null)} />
+                    <DropdownItem key={'all'} text={t('all')} onClick={() => this.onGroupsChanged(null)} />
                     {this.props.groupsState.groups.map((g) => (
                       <DropdownItem key={g.get('_id')} text={g.get('name')} onClick={() => this.onGroupsChanged(g)} />
                     ))}
@@ -325,18 +328,22 @@ class TicketsContainer extends React.Component {
                 <DropdownTrigger pos={'bottom-right'} offset={5} extraClass={'uk-float-left'}>
                   <PageTitleButton fontAwesomeIcon={'fa-tasks'} />
                   <Dropdown small={true} width={120}>
-                    <DropdownItem text={'创建'} onClick={() => this.props.showModal('CREATE_TICKET')} />
+                    <DropdownItem text={t('create')} onClick={() => this.props.showModal('CREATE_TICKET')} />
                     <DropdownSeparator />
                     {this.props.ticketStatuses.map((s) => (
                       <DropdownItem
                         key={s.get('_id')}
-                        text={'设置为 ' + s.get('name')}
+                        text={`${t('set_status')} ${s.get('name')}`}
                         onClick={() => this.onSetStatus(s)}
                       />
                     ))}
                     {helpers.canUser('tickets:delete', true) && <DropdownSeparator />}
                     {helpers.canUser('tickets:delete', true) && (
-                      <DropdownItem text={'删除'} extraClass={'text-danger'} onClick={() => this.onDeleteClicked()} />
+                      <DropdownItem
+                        text={t('delete')}
+                        extraClass={'text-danger'}
+                        onClick={() => this.onDeleteClicked()}
+                      />
                     )}
                   </Dropdown>
                 </DropdownTrigger>
@@ -347,14 +354,14 @@ class TicketsContainer extends React.Component {
                     style={{ marginTop: 8, paddingLeft: 0 }}
                   >
                     {/* <input
-                      type='text'
-                      id='tickets_Search'
-                      placeholder={'搜索'}
-                      className={'ticket-top-search'}
-                      value={this.searchTerm}
-                      onChange={e => this.onSearchTermChanged(e)}
-                      onFocus={e => this._onSearchFocus(e)}
-                    /> */}
+                        type='text'
+                        id='tickets_Search'
+                        placeholder={t('search')}
+                        className={'ticket-top-search'}
+                        value={this.searchTerm}
+                        onChange={e => this.onSearchTermChanged(e)}
+                        onFocus={e => this._onSearchFocus(e)}
+                      /> */}
                   </div>
                 </div>
               </div>
@@ -372,21 +379,21 @@ class TicketsContainer extends React.Component {
             striped={true}
             headers={[
               <TableHeader key={0} width={45} height={50} component={selectAllCheckbox} />,
-              <TableHeader key={1} width={60} text={'状态'} />,
+              <TableHeader key={1} width={60} text={t('status')} />,
               <TableHeader key={2} width={65} text={'#'} />,
-              <TableHeader key={3} width={'23%'} text={'主题'} />,
-              <TableHeader key={4} width={110} text={'创建时间'} />,
-              <TableHeader key={5} width={125} text={'发起人'} />,
-              <TableHeader key={6} width={175} text={'代理店'} />,
-              <TableHeader key={7} text={'负责人'} />,
-              <TableHeader key={8} width={110} text={'过期时间'} />,
-              <TableHeader key={9} text={'更新时间'} />,
+              <TableHeader key={3} width={'23%'} text={t('subject')} />,
+              <TableHeader key={4} width={110} text={t('created_at')} />,
+              <TableHeader key={5} width={125} text={t('owner')} />,
+              <TableHeader key={6} width={175} text={t('group')} />,
+              <TableHeader key={7} text={t('assignee')} />,
+              <TableHeader key={8} width={110} text={t('due_date')} />,
+              <TableHeader key={9} text={t('updated_at')} />,
             ]}
           >
             {!this.props.loading && this.props.tickets.size < 1 && (
               <TableRow clickable={false}>
                 <TableCell colSpan={10}>
-                  <h5 style={{ margin: 10 }}>暂无工单</h5>
+                  <h5 style={{ margin: 10 }}>{t('no_tickets')}</h5>
                 </TableCell>
               </TableRow>
             )}
@@ -528,15 +535,18 @@ const mapStateToProps = (state) => ({
   fetchTicketStatus: PropTypes.func.isRequired,
 });
 
-export default connect(mapStateToProps, {
-  fetchTickets,
-  fetchGroups,
-  unloadGroups,
-  deleteTicket,
-  ticketEvent,
-  unloadTickets,
-  ticketUpdated,
-  fetchSearchResults,
-  showModal,
-  fetchTicketStatus,
-})(TicketsContainer);
+export default compose(
+  withTranslation(),
+  connect(mapStateToProps, {
+    fetchTickets,
+    fetchGroups,
+    unloadGroups,
+    deleteTicket,
+    ticketEvent,
+    unloadTickets,
+    ticketUpdated,
+    fetchSearchResults,
+    showModal,
+    fetchTicketStatus,
+  })
+)(TicketsContainer);

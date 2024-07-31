@@ -11,39 +11,43 @@
  *  Copyright (c) 2014-2019 Trudesk, Inc. All rights reserved.
  */
 
-import React, { Fragment } from 'react'
-import PropTypes from 'prop-types'
-import helpers from 'lib/helpers'
-import socket from 'lib/socket'
-import Avatar from 'components/Avatar/Avatar'
-import IssuePartial from 'containers/Tickets/IssuePartial'
-import TruTabWrapper from 'components/TruTabs/TruTabWrapper'
-import TruTabSelectors from 'components/TruTabs/TruTabSelectors'
-import TruTabSelector from 'components/TruTabs/TruTabSelector'
-import TruTabSection from 'components/TruTabs/TruTabSection'
-import CommentNotePartial from 'containers/Tickets/CommentNotePartial'
-import EasyMDE from 'components/EasyMDE'
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import helpers from 'lib/helpers';
+import socket from 'lib/socket';
+import Avatar from 'components/Avatar/Avatar';
+import IssuePartial from 'containers/Tickets/IssuePartial';
+import TruTabWrapper from 'components/TruTabs/TruTabWrapper';
+import TruTabSelectors from 'components/TruTabs/TruTabSelectors';
+import TruTabSelector from 'components/TruTabs/TruTabSelector';
+import TruTabSection from 'components/TruTabs/TruTabSection';
+import CommentNotePartial from 'containers/Tickets/CommentNotePartial';
+import EasyMDE from 'components/EasyMDE';
+import { compose } from 'redux';
+import { withTranslation } from 'react-i18next';
 
 class SingleTicketLoading extends React.Component {
-  render () {
+  render() {
+    const { t } = this.props;
+
     return (
       <Fragment>
         <div className={'page-content'}>
           <div
-            className='uk-float-left page-title page-title-small noshadow nopadding relative'
+            className="uk-float-left page-title page-title-small noshadow nopadding relative"
             style={{ width: 360, maxWidth: 360, minWidth: 360 }}
           >
-            <div className='page-title-border-right relative' style={{ padding: '0 30px' }}>
-              <p>工单 </p>
+            <div className="page-title-border-right relative" style={{ padding: '0 30px' }}>
+              <p>{t('tickets')}</p>
             </div>
             {/*  Left Side */}
-            <div className='page-content-left full-height scrollable'>
-              <div className='ticket-details-wrap uk-position-relative uk-clearfix'>
-                <div className='ticket-assignee-wrap uk-clearfix' style={{ paddingRight: 30 }}>
-                  <h4>负责人</h4>
-                  <div className='ticket-assignee uk-clearfix'>
+            <div className="page-content-left full-height scrollable">
+              <div className="ticket-details-wrap uk-position-relative uk-clearfix">
+                <div className="ticket-assignee-wrap uk-clearfix" style={{ paddingRight: 30 }}>
+                  <h4>{t('assignee')}</h4>
+                  <div className="ticket-assignee uk-clearfix">
                     <Avatar image={undefined} showOnlineBubble={false} />
-                    <div className='ticket-assignee-details'>
+                    <div className="ticket-assignee-details">
                       <Fragment>
                         <h3>
                           <div className={'loadingTextAnimation'} />
@@ -57,39 +61,39 @@ class SingleTicketLoading extends React.Component {
                   </div>
                 </div>
 
-                <div className='uk-width-1-1 padding-left-right-15'>
-                  <div className='tru-card ticket-details uk-clearfix'>
+                <div className="uk-width-1-1 padding-left-right-15">
+                  <div className="tru-card ticket-details uk-clearfix">
                     {/* Type */}
-                    <div className='uk-width-1-2 uk-float-left nopadding'>
-                      <div className='marginright5'>
-                        <span>Type</span>
-                        <div className='input-box' style={{ paddingTop: 8 }}>
+                    <div className="uk-width-1-2 uk-float-left nopadding">
+                      <div className="marginright5">
+                        <span>{t('type')}</span>
+                        <div className="input-box" style={{ paddingTop: 8 }}>
                           <div className={'loadingTextAnimation'} />
                         </div>
                       </div>
                     </div>
                     {/* Priority */}
-                    <div className='uk-width-1-2 uk-float-left nopadding'>
-                      <div className='marginleft5'>
-                        <span>Priority</span>
-                        <div className='input-box'>---</div>
+                    <div className="uk-width-1-2 uk-float-left nopadding">
+                      <div className="marginleft5">
+                        <span>{t('priority')}</span>
+                        <div className="input-box">---</div>
                       </div>
                     </div>
                     {/*  Group */}
-                    <div className='uk-width-1-1 nopadding uk-clearfix'>
-                      <span>Group</span>
-                      <div className='input-box'>---</div>
+                    <div className="uk-width-1-1 nopadding uk-clearfix">
+                      <span>{t('group')}</span>
+                      <div className="input-box">---</div>
                     </div>
                     {/*  Due Date */}
-                    <div className='uk-width-1-1 p-0'>
-                      <span>Due Date</span>
-                      <div className='input-box'>---</div>
+                    <div className="uk-width-1-1 p-0">
+                      <span>{t('due_date')}</span>
+                      <div className="input-box">---</div>
                     </div>
 
                     {/* Tags */}
-                    <div className='uk-width-1-1 nopadding'>
-                      <span>Tags</span>
-                      <div className='tag-list uk-clearfix' />
+                    <div className="uk-width-1-1 nopadding">
+                      <span>{t('tags')}</span>
+                      <div className="tag-list uk-clearfix" />
                     </div>
                   </div>
                 </div>
@@ -98,54 +102,54 @@ class SingleTicketLoading extends React.Component {
           </div>
         </div>
         {/* Right Side */}
-        <div className='page-message nopadding' style={{ marginLeft: 360 }}>
-          <div className='page-title-right noshadow'>
-            <div className='page-top-comments uk-float-right'>
-              <a role='button' className='btn no-ajaxy'>
-               添加评论 
+        <div className="page-message nopadding" style={{ marginLeft: 360 }}>
+          <div className="page-title-right noshadow">
+            <div className="page-top-comments uk-float-right">
+              <a role="button" className="btn no-ajaxy">
+                {t('add_comment')}
               </a>
             </div>
             <div
-              className='onoffswitch subscribeSwitch uk-float-right'
+              className="onoffswitch subscribeSwitch uk-float-right"
               style={{ marginRight: 10, position: 'relative', top: 18 }}
             >
-              <input id={'subscribeSwitch'} type='checkbox' name='subscribeSwitch' className='onoffswitch-checkbox' />
-              <label className='onoffswitch-label' htmlFor='subscribeSwitch'>
-                <span className='onoffswitch-inner subscribeSwitch-inner' />
-                <span className='onoffswitch-switch subscribeSwitch-switch' />
+              <input id={'subscribeSwitch'} type="checkbox" name="subscribeSwitch" className="onoffswitch-checkbox" />
+              <label className="onoffswitch-label" htmlFor="subscribeSwitch">
+                <span className="onoffswitch-inner subscribeSwitch-inner" />
+                <span className="onoffswitch-switch subscribeSwitch-switch" />
               </label>
             </div>
-            <div className='pagination uk-float-right' style={{ marginRight: 5 }}>
-              <ul className='button-group'>
-                <li className='pagination'>
-                  <a href='#' className='btn no-ajaxy' style={{ borderRadius: 3, marginRight: 5 }}>
-                    <i className='material-icons'>&#xE8AD;</i>
+            <div className="pagination uk-float-right" style={{ marginRight: 5 }}>
+              <ul className="button-group">
+                <li className="pagination">
+                  <a href="#" className="btn no-ajaxy" style={{ borderRadius: 3, marginRight: 5 }}>
+                    <i className="material-icons">&#xE8AD;</i>
                   </a>
                 </li>
               </ul>
             </div>
           </div>
-          <div className='page-content-right full-height scrollable'>
-            <div className='comments-wrapper'>
-              {/*<IssuePartial*/}
-              {/*  ticketId={this.ticket._id}*/}
-              {/*  status={this.ticket.status}*/}
-              {/*  owner={this.ticket.owner}*/}
-              {/*  subject={this.ticket.subject}*/}
-              {/*  issue={this.ticket.issue}*/}
-              {/*  date={this.ticket.date}*/}
-              {/*  dateFormat={`${this.props.common.longDateFormat}, ${this.props.common.timeFormat}`}*/}
-              {/*  attachments={this.ticket.attachments}*/}
-              {/*  editorWindow={this.editorWindow}*/}
-              {/*/>*/}
+          <div className="page-content-right full-height scrollable">
+            <div className="comments-wrapper">
+              {/*<IssuePartial
+                  ticketId={this.ticket._id}
+                  status={this.ticket.status}
+                  owner={this.ticket.owner}
+                  subject={this.ticket.subject}
+                  issue={this.ticket.issue}
+                  date={this.ticket.date}
+                  dateFormat={`${this.props.common.longDateFormat}, ${this.props.common.timeFormat}`}
+                  attachments={this.ticket.attachments}
+                  editorWindow={this.editorWindow}
+                  />*/}
             </div>
           </div>
         </div>
       </Fragment>
-    )
+    );
   }
 }
 
-SingleTicketLoading.propTypes = {}
+SingleTicketLoading.propTypes = {};
 
-export default SingleTicketLoading
+export default withTranslation()(SingleTicketLoading);

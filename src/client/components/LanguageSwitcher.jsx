@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const LanguageSwitcher = () => {
   const { i18n } = useTranslation();
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [selectedLanguage, setSelectedLanguage] = useState(i18n.language);
   const [isOpen, setIsOpen] = useState(false);
 
   const languages = [
@@ -12,11 +12,21 @@ const LanguageSwitcher = () => {
     { text: '中文', value: 'zh' }
   ];
 
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage) {
+      i18n.changeLanguage(savedLanguage);
+      setSelectedLanguage(savedLanguage);
+    }
+  }, [i18n]);
+
   const handleLanguageChange = (newLanguage) => {
     i18n.changeLanguage(newLanguage);
     setSelectedLanguage(newLanguage);
+    localStorage.setItem('language', newLanguage); // 保存到本地存储
     setIsOpen(false);
   };
+
 
   const toggleDropdown = () => setIsOpen(!isOpen);
 
@@ -47,7 +57,7 @@ const LanguageSwitcher = () => {
             borderRadius: '8px',
             padding: '8px 0',
             zIndex: 9999,
-            width: '120px'
+            width: '80px'
           }}
         >
           {languages.map((language, index) => (
@@ -56,6 +66,7 @@ const LanguageSwitcher = () => {
               onClick={() => handleLanguageChange(language.value)} 
               style={{ 
                 fontSize:12,
+                lineHeight: 'normal',
                 padding: '8px 16px', 
                 cursor: 'pointer', 
                 color: '#333',
